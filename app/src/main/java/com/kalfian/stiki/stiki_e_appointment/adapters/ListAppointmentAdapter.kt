@@ -9,17 +9,17 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ListActivityBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import kotlin.collections.ArrayList
 
-class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): RecyclerView.Adapter<ListActivityAdapter.ViewHolder>() {
+class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
     private var list = ArrayList<Activity>()
     private var onClickAdapter = onClick
 
-    interface AdapterListActivityOnClickListener {
+    interface AdapterAppointmentOnClickListener {
         fun onItemClickListener(data: Activity)
     }
 
-    inner class ViewHolder(itemView: View, onClickListener: AdapterListActivityOnClickListener): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, onClickListener: AdapterAppointmentOnClickListener): RecyclerView.ViewHolder(itemView) {
         private val b = ListActivityBinding.bind(itemView)
-        private var clickListener: AdapterListActivityOnClickListener = onClickListener
+        private var clickListener: AdapterAppointmentOnClickListener = onClickListener
 
         fun bind(v: Activity) {
 
@@ -32,7 +32,7 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_activity, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.list_appointment, parent, false)
         return ViewHolder(v, onClickAdapter)
     }
 
@@ -42,7 +42,7 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
 
     override fun getItemCount(): Int {
 //        return list.size
-        return 1
+        return 8
     }
 
     fun addList(items: List<Activity>) {

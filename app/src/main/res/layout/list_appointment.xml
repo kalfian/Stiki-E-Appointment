@@ -37,11 +37,12 @@
             android:layout_marginBottom="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/gray"
             android:fontFamily="@font/ubuntu_regular"
             android:text="Bimbingan Bab 1 oleh dosen pembimbing 1 terkait ...." />
         
         <LinearLayout
+            android:paddingTop="4dp"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -61,6 +62,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:paddingTop="4dp"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -80,6 +82,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:paddingTop="4dp"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
