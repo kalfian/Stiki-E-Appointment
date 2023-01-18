@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment
+package com.kalfian.stiki.stiki_e_appointment.modules
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

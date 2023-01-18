@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.student.home
+package com.kalfian.stiki.stiki_e_appointment.modules.student.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

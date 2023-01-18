@@ -1,10 +1,10 @@
-package com.kalfian.stiki.stiki_e_appointment
+package com.kalfian.stiki.stiki_e_appointment.modules
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityLoginBinding
-import com.kalfian.stiki.stiki_e_appointment.student.DashboardStudentActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 
 class LoginActivity : AppCompatActivity() {
 
