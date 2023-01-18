@@ -22,11 +22,6 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     private lateinit var activityAdapter: ListActivityAdapter
     private lateinit var appointmentAdapter: ListAppointmentAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

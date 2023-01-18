@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".modules.student.home.HomeStudentFragment"
-    android:background="#f5f5f5">
+    android:background="@color/light_gray">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_home_student"
