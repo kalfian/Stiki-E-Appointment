@@ -129,21 +129,21 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:layout_marginBottom="18dp"
-                                android:fontFamily="@font/ubuntu_bold"
-                                android:text="Bimbingan Bab 1" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:layout_marginBottom="18dp"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:text="Bimbingan Bab 1" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/gray"
-                                android:fontFamily="@font/ubuntu_regular"
-                                android:layout_marginBottom="18dp"
-                                android:text="Bimbingan bab 1 Oleh dospem 1 : Chaulina Alfianti Oktavia, S.Kom, M.T" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/ubuntu_regular"
+                            android:layout_marginBottom="18dp"
+                            android:text="Bimbingan bab 1 Oleh dospem 1 : Chaulina Alfianti Oktavia, S.Kom, M.T" />
 
                         <LinearLayout
                             android:paddingTop="4dp"

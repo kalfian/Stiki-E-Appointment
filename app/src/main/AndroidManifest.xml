@@ -13,6 +13,13 @@
         android:theme="@style/Theme.StikiEAppointment"
         tools:targetApi="31">
         <activity
+            android:name=".modules.student.DetailAppointmentActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".modules.student.DetailActivityActivity"
             android:exported="false">
             <meta-data
