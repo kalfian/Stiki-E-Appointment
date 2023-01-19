@@ -79,12 +79,13 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
 
     private fun getListActivity() {
+        appointmentAdapter.clear()
         activityAdapter.add(Activity("1", "", "", "", ""))
         b.recyclerActivityStudent.visibility = View.GONE
     }
 
     private fun getListAppointment() {
-
+        appointmentAdapter.clear()
         appointmentAdapter.addList(listOf(
             Appointment("1", "", "", "", ""),
             Appointment("1", "", "", "", ""),
