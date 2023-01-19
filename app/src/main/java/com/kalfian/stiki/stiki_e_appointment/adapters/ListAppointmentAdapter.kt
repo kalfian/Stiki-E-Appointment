@@ -5,23 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kalfian.stiki.stiki_e_appointment.R
-import com.kalfian.stiki.stiki_e_appointment.databinding.ListActivityBinding
-import com.kalfian.stiki.stiki_e_appointment.models.Activity
+import com.kalfian.stiki.stiki_e_appointment.databinding.ListAppointmentBinding
+import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import kotlin.collections.ArrayList
 
 class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
-    private var list = ArrayList<Activity>()
+    private var list = ArrayList<Appointment>()
     private var onClickAdapter = onClick
 
     interface AdapterAppointmentOnClickListener {
-        fun onItemClickListener(data: Activity)
+        fun onItemClickListener(data: Appointment)
     }
 
     inner class ViewHolder(itemView: View, onClickListener: AdapterAppointmentOnClickListener): RecyclerView.ViewHolder(itemView) {
-        private val b = ListActivityBinding.bind(itemView)
+        private val b = ListAppointmentBinding.bind(itemView)
         private var clickListener: AdapterAppointmentOnClickListener = onClickListener
 
-        fun bind(v: Activity) {
+        fun bind(v: Appointment) {
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])
@@ -37,20 +37,19 @@ class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener): Recycl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(list[position])
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-//        return list.size
-        return 8
+        return list.size
     }
 
-    fun addList(items: List<Activity>) {
+    fun addList(items: List<Appointment>) {
         list.addAll(items)
         notifyDataSetChanged()
     }
 
-    fun add(item: Activity) {
+    fun add(item: Appointment) {
         list.add(item)
         notifyDataSetChanged()
     }

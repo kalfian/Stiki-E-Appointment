@@ -11,6 +11,7 @@ import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentAppointmentStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
+import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 
 class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_student),
     ListAppointmentAdapter.AdapterAppointmentOnClickListener{
@@ -58,7 +59,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
         b.recyclerAppointmentStudent.visibility = View.GONE
     }
 
-    override fun onItemClickListener(data: Activity) {
+    override fun onItemClickListener(data: Appointment) {
         TODO("Not yet implemented")
     }
 

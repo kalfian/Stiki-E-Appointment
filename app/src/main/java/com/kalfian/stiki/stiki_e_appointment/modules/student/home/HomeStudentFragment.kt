@@ -1,17 +1,19 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.student.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListActivityAdapter
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
+import com.kalfian.stiki.stiki_e_appointment.models.Appointment
+import com.kalfian.stiki.stiki_e_appointment.modules.student.DetailActivityActivity
 
 
 class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
@@ -77,14 +79,30 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
 
     private fun getListActivity() {
+        activityAdapter.add(Activity("1", "", "", "", ""))
         b.recyclerActivityStudent.visibility = View.GONE
     }
 
     private fun getListAppointment() {
+
+        appointmentAdapter.addList(listOf(
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", ""),
+        ))
         b.recyclerAppointmentStudent.visibility = View.GONE
     }
 
+    override fun onItemClickListener(data: Appointment) {
+
+    }
+
     override fun onItemClickListener(data: Activity) {
-        TODO("Not yet implemented")
+        val intent = Intent(activity?.applicationContext, DetailActivityActivity::class.java)
+        startActivity(intent)
     }
 }

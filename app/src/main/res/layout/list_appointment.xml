@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:fontFamily="@font/ubuntu_regular"
-                android:text="Zoom meet at https://www.zoom.com/anu123" />
+                android:text="Zoom meet" />
         </LinearLayout>
 
         <LinearLayout

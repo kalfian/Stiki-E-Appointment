@@ -7,6 +7,7 @@ import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDashboardStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.student.home.AppointmentStudentFragment
 import com.kalfian.stiki.stiki_e_appointment.modules.student.home.HomeStudentFragment
+import com.kalfian.stiki.stiki_e_appointment.modules.student.home.SettingStudentFragment
 
 class DashboardStudentActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class DashboardStudentActivity : AppCompatActivity() {
 
         val homeFragment = HomeStudentFragment()
         val appointmentFragment = AppointmentStudentFragment()
+        val settingFragment = SettingStudentFragment()
 
         makeCurrentFragment(homeFragment, b)
 
@@ -27,6 +29,7 @@ class DashboardStudentActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.home_bottom_nav -> makeCurrentFragment(homeFragment, b)
                 R.id.appointment_bottom_nav -> makeCurrentFragment(appointmentFragment, b)
+                R.id.setting_bottom_nav -> makeCurrentFragment(settingFragment, b)
             }
             true
         }

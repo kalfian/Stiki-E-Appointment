@@ -37,12 +37,11 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(list[position])
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-//        return list.size
-        return 1
+        return list.size
     }
 
     fun addList(items: List<Activity>) {
