@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
-    tools:context=".modules.student.DetailActivityActivity">
-
+    tools:context=".modules.student.CreateAppointmentActivity">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_home_student"
         android:layout_width="match_parent"
@@ -14,6 +12,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/light_gray"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.core.widget.NestedScrollView
@@ -67,82 +66,137 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/sample_activity_logo" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="vertical"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginBottom="16dp"
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:layout_marginBottom="4dp"
+                                android:layout_marginBottom="8dp"
                                 android:layout_width="wrap_content"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="PT Taspen" />
+                                android:text="Kegiatan" />
 
-                            <TextView
-                                android:layout_marginBottom="4dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/gray"
-                                android:fontFamily="@font/ubuntu_regular"
-                                android:text="Jl. Mayor Jend. Di Panjaitan No.7, Pandean, Madiun" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_regular"
-                                android:text="1 Januari 2023 - 30 April 2023" />
-
-
-
+                            <Spinner
+                                android:id="@+id/spinner_kegiatan"
+                                android:spinnerMode="dropdown"
+                                android:background="@drawable/input_round"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
                         </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:paddingTop="32dp"
-                        android:paddingBottom="32dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:layout_margin="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/round_white"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
 
                             <TextView
+                                android:layout_marginBottom="8dp"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_bold"
-                                android:text="Partisipan" />
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Judul" />
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_list_participant"
+
+                            <EditText
+                                android:inputType="text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp" />
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:padding="16dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Keterangan" />
 
 
+                            <EditText
+                                android:inputType="text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:padding="16dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Tanggal" />
+
+
+                            <EditText
+                                android:inputType="date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:padding="16dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Lokasi" />
+
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minLines="6"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:gravity="top|left"
+                                android:inputType="textMultiLine"
+                                android:padding="16dp" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <Button
@@ -156,7 +210,7 @@
                         android:padding="6dp"
                         android:textSize="14sp"
                         android:fontFamily="@font/ubuntu_bold"
-                        android:text="Kelola Logbook"
+                        android:text="Tambah Kegiatan"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_blue" />
 

@@ -1,5 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.student.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentAppointmentStud
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
+import com.kalfian.stiki.stiki_e_appointment.modules.student.CreateAppointmentActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.student.DetailAppointmentActivity
 
 class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_student),
     ListAppointmentAdapter.AdapterAppointmentOnClickListener{
@@ -46,12 +49,17 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
             b.swipeRefreshHomeStudent.isRefreshing = false
         }
 
+        b.createAppointment.setOnClickListener {
+            val intent = Intent(activity?.applicationContext, CreateAppointmentActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this)
+        appointmentAdapter = ListAppointmentAdapter(this, true, true)
         b.recyclerAppointmentStudent.adapter = appointmentAdapter
     }
 
@@ -70,7 +78,8 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     }
 
     override fun onItemClickListener(data: Appointment) {
-        TODO("Not yet implemented")
+        val intent = Intent(activity?.applicationContext, DetailAppointmentActivity::class.java)
+        startActivity(intent)
     }
 
 }

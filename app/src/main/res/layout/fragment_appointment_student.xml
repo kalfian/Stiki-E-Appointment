@@ -65,7 +65,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/appCompatImageButton"
+                            android:id="@+id/create_appointment"
                             android:layout_width="48dp"
                             android:background="@null"
                             android:layout_height="48dp"

@@ -14,6 +14,7 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBind
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DetailActivityActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.student.DetailAppointmentActivity
 
 
 class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
@@ -74,7 +75,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this)
+        appointmentAdapter = ListAppointmentAdapter(this, false, false)
         b.recyclerAppointmentStudent.adapter = appointmentAdapter
     }
 
@@ -99,7 +100,8 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
 
     override fun onItemClickListener(data: Appointment) {
-
+        val intent = Intent(activity?.applicationContext, DetailAppointmentActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onItemClickListener(data: Activity) {
