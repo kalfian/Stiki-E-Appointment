@@ -51,6 +51,19 @@
             android:textColor="@color/white"
             android:layout_height="wrap_content" />
 
+        <Button
+            android:layout_marginTop="16dp"
+            android:id="@+id/btn_change_status_logbook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_round_blue"
+            app:backgroundTint="@null"
+            android:padding="8dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/ubuntu_bold"
+            android:text="Ganti Status"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

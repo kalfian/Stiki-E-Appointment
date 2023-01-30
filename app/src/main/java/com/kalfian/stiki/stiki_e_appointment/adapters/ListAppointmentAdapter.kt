@@ -10,17 +10,18 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ListAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import kotlin.collections.ArrayList
 
-class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
+class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean, isLecture: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
     private var list = ArrayList<Appointment>()
     private var onClickAdapter = onClick
     private var showLecture = showLecture
     private var showStatus = showStatus
+    private var isLecture = isLecture
 
     interface AdapterAppointmentOnClickListener {
         fun onItemClickListener(data: Appointment)
     }
 
-    inner class ViewHolder(itemView: View, onClickListener: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, onClickListener: AdapterAppointmentOnClickListener): RecyclerView.ViewHolder(itemView) {
         private val b = ListAppointmentBinding.bind(itemView)
         private var clickListener: AdapterAppointmentOnClickListener = onClickListener
 
@@ -28,6 +29,10 @@ class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLec
 
             if (!showStatus) {
                 b.status.visibility = View.GONE
+            }
+
+            if (!isLecture) {
+                b.appointmentStudent.visibility = View.GONE
             }
 
             if (!showLecture) {
@@ -45,7 +50,7 @@ class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_appointment, parent, false)
-        return ViewHolder(v, onClickAdapter, showLecture, showStatus)
+        return ViewHolder(v, onClickAdapter)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

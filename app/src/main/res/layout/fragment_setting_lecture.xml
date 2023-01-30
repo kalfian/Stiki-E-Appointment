@@ -100,14 +100,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/ubuntu_bold"
-                                android:text="Kukuh Alfian Hanif"
+                                android:text="Dosen 1"
                                 android:textColor="@color/blue" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/ubuntu_regular"
-                                android:text="191116011"
+                                android:text="123456789"
                                 android:textColor="@color/blue" />
                         </LinearLayout>
 

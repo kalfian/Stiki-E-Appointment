@@ -34,6 +34,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/ubuntu_medium"/>
             <EditText
+                android:id="@+id/email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"

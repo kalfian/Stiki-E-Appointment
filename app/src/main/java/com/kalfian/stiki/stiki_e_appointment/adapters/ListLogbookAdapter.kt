@@ -12,19 +12,30 @@ import kotlin.collections.ArrayList
 class ListLogbookAdapter(onClick: AdapterLogbookOnClickListener, isLecture: Boolean): RecyclerView.Adapter<ListLogbookAdapter.ViewHolder>() {
     private var list = ArrayList<Logbook>()
     private var onClickAdapter = onClick
+    private var isLecture = isLecture
 
     interface AdapterLogbookOnClickListener {
         fun onItemClickListener(data: Logbook)
+        fun onChangeStatusCliclListener(data: Logbook)
     }
 
     inner class ViewHolder(itemView: View, onClickListener: AdapterLogbookOnClickListener): RecyclerView.ViewHolder(itemView) {
         private val b = ListLogbookBinding.bind(itemView)
         private var clickListener: AdapterLogbookOnClickListener = onClickListener
 
-        fun bind(v: Logbook) {
+        fun bind(logbook: Logbook) {
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])
+            }
+
+            if (isLecture) {
+                b.btnChangeStatusLogbook.visibility = View.VISIBLE
+                b.btnChangeStatusLogbook.setOnClickListener {
+                    clickListener.onChangeStatusCliclListener(list[adapterPosition])
+                }
+            } else {
+                b.btnChangeStatusLogbook.visibility = View.GONE
             }
 
         }

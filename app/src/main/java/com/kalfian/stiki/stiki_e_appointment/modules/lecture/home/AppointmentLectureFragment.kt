@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.modules.student.home
+package com.kalfian.stiki.stiki_e_appointment.modules.lecture.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
-import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentAppointmentStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentAppointmentLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
-import com.kalfian.stiki.stiki_e_appointment.modules.appointment.CreateAppointmentActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
 
-class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_student),
+class AppointmentLectureFragment : Fragment(R.layout.fragment_appointment_lecture),
     ListAppointmentAdapter.AdapterAppointmentOnClickListener{
 
-    private lateinit var b: FragmentAppointmentStudentBinding
+    private lateinit var b: FragmentAppointmentLectureBinding
     private lateinit var appointmentAdapter: ListAppointmentAdapter
 
     override fun onCreateView(
@@ -25,7 +24,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
         savedInstanceState: Bundle?
     ): View? {
 
-        b = FragmentAppointmentStudentBinding.inflate(inflater, container, false)
+        b = FragmentAppointmentLectureBinding.inflate(inflater, container, false)
         return b.root
     }
 
@@ -35,30 +34,25 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
         setupListAppointment()
         getListAppointment()
 
-        b.swipeRefreshHomeStudent.setOnRefreshListener {
+        b.swipeRefreshHome.setOnRefreshListener {
             if (b.emptyAppointment.visibility == View.GONE) {
                 b.emptyAppointment.visibility = View.VISIBLE
-                b.recyclerAppointmentStudent.visibility = View.GONE
+                b.recyclerAppointment.visibility = View.GONE
             } else {
                 b.emptyAppointment.visibility = View.GONE
-                b.recyclerAppointmentStudent.visibility = View.VISIBLE
+                b.recyclerAppointment.visibility = View.VISIBLE
             }
 
-            b.swipeRefreshHomeStudent.isRefreshing = false
-        }
-
-        b.createAppointment.setOnClickListener {
-            val intent = Intent(activity?.applicationContext, CreateAppointmentActivity::class.java)
-            startActivity(intent)
+            b.swipeRefreshHome.isRefreshing = false
         }
 
     }
 
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
-        b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this, true, true, false)
-        b.recyclerAppointmentStudent.adapter = appointmentAdapter
+        b.recyclerAppointment.layoutManager = lm
+        appointmentAdapter = ListAppointmentAdapter(this, true, true, true)
+        b.recyclerAppointment.adapter = appointmentAdapter
     }
 
     private fun getListAppointment() {
@@ -72,7 +66,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
             Appointment("1", "", "", "", ""),
             Appointment("1", "", "", "", ""),
         ))
-        b.recyclerAppointmentStudent.visibility = View.GONE
+        b.recyclerAppointment.visibility = View.GONE
     }
 
     override fun onItemClickListener(data: Appointment) {

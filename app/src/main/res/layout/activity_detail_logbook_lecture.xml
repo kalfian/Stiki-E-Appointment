@@ -58,7 +58,7 @@
 
                     </LinearLayout>
                     <include
-                        layout="@layout/head_with_back_add"
+                        layout="@layout/head_with_back"
                         android:id="@+id/nav"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

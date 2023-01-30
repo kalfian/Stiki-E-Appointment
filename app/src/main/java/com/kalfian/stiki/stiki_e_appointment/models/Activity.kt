@@ -7,5 +7,8 @@ data class Activity (
     var image: String = "",
     var title: String = "",
     var startDate: String = "",
-    var endDate: String = ""
+    var endDate: String = "",
+
+    var participants: ArrayList<Participant> = arrayListOf()
+
 ): Serializable

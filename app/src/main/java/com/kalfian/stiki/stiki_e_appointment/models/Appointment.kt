@@ -7,5 +7,6 @@ data class Appointment (
     var image: String = "",
     var title: String = "",
     var startDate: String = "",
-    var endDate: String = ""
+    var endDate: String = "",
+    var participant: Participant? = Participant()
 ): Serializable

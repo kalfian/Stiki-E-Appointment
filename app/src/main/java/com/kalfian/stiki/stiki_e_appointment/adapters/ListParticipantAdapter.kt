@@ -5,18 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kalfian.stiki.stiki_e_appointment.R
-import com.kalfian.stiki.stiki_e_appointment.databinding.ListAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListParticipantBinding
-import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import kotlin.collections.ArrayList
 
-class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, isLecture: Boolean): RecyclerView.Adapter<ListParticipantAdapter.ViewHolder>() {
+class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, showLogBook: Boolean): RecyclerView.Adapter<ListParticipantAdapter.ViewHolder>() {
     private var list = ArrayList<Participant>()
     private var onClickAdapter = onClick
+    private var showLogBook = showLogBook
 
     interface AdapterParticipantOnClickListener {
         fun onItemClickListener(data: Participant)
+        fun onBtnLogbookClickListener(data: Participant)
     }
 
     inner class ViewHolder(itemView: View, onClickListener: AdapterParticipantOnClickListener): RecyclerView.ViewHolder(itemView) {
@@ -24,6 +24,14 @@ class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, isLectu
         private var clickListener: AdapterParticipantOnClickListener = onClickListener
 
         fun bind(v: Participant) {
+
+            if (!showLogBook) {
+                b.containerBtnLogbook.visibility = View.GONE
+            } else {
+                b.btnLogbook.setOnClickListener {
+                    clickListener.onBtnLogbookClickListener(list[adapterPosition])
+                }
+            }
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])

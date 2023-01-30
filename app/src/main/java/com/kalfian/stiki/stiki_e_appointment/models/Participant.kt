@@ -5,4 +5,5 @@ import java.io.Serializable
 data class Participant (
     var id: String = "",
     var name: String = "",
+    var identity: String = ""
 ): Serializable

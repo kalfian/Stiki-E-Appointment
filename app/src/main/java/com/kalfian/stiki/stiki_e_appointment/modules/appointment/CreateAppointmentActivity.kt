@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.modules.student
+package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 
 import android.os.Bundle
 import android.widget.ArrayAdapter

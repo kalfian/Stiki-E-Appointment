@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.modules.student.home
+package com.kalfian.stiki.stiki_e_appointment.modules.lecture.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,18 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListActivityAdapter
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
-import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
+import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import com.kalfian.stiki.stiki_e_appointment.modules.activity.DetailActivityActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 
 
-class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
+class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
     ListActivityAdapter.AdapterListActivityOnClickListener,
     ListAppointmentAdapter.AdapterAppointmentOnClickListener{
 
-    private lateinit var b: FragmentHomeStudentBinding
+    private lateinit var b: FragmentHomeLectureBinding
     private lateinit var activityAdapter: ListActivityAdapter
     private lateinit var appointmentAdapter: ListAppointmentAdapter
 
@@ -30,7 +32,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
         savedInstanceState: Bundle?
     ): View? {
 
-        b = FragmentHomeStudentBinding.inflate(inflater, container, false)
+        b = FragmentHomeLectureBinding.inflate(inflater, container, false)
         return b.root
 
     }
@@ -44,72 +46,83 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
         getListActivity()
         getListAppointment()
 
-        b.swipeRefreshHomeStudent.setOnRefreshListener {
+        b.swipeRefreshHome.setOnRefreshListener {
             if (b.emptyAppointment.visibility == View.GONE) {
                 b.emptyAppointment.visibility = View.VISIBLE
-                b.recyclerAppointmentStudent.visibility = View.GONE
+                b.recyclerAppointment.visibility = View.GONE
             } else {
                 b.emptyAppointment.visibility = View.GONE
-                b.recyclerAppointmentStudent.visibility = View.VISIBLE
+                b.recyclerAppointment.visibility = View.VISIBLE
             }
 
             if (b.emptyActivity.visibility == View.GONE) {
                 b.emptyActivity.visibility = View.VISIBLE
-                b.recyclerActivityStudent.visibility = View.GONE
+                b.recyclerActivity.visibility = View.GONE
             } else {
                 b.emptyActivity.visibility = View.GONE
-                b.recyclerActivityStudent.visibility = View.VISIBLE
+                b.recyclerActivity.visibility = View.VISIBLE
             }
 
-            b.swipeRefreshHomeStudent.isRefreshing = false
+            b.swipeRefreshHome.isRefreshing = false
         }
     }
 
     private fun setupListActivity() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
-        b.recyclerActivityStudent.layoutManager = lm
-        activityAdapter = ListActivityAdapter(this, false)
-        b.recyclerActivityStudent.adapter = activityAdapter
+        b.recyclerActivity.layoutManager = lm
+        activityAdapter = ListActivityAdapter(this, true)
+        b.recyclerActivity.adapter = activityAdapter
     }
 
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
-        b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this, false, false, false)
-        b.recyclerAppointmentStudent.adapter = appointmentAdapter
+        b.recyclerAppointment.layoutManager = lm
+        appointmentAdapter = ListAppointmentAdapter(this, false, false, true)
+        b.recyclerAppointment.adapter = appointmentAdapter
     }
 
     private fun getListActivity() {
         appointmentAdapter.clear()
         activityAdapter.addList(
             listOf(
-                Activity("1", "", "", "", "")
+                Activity("1", "", "", "", "", arrayListOf(
+                    Participant("1", "name", "nrp"),
+                    Participant("1", "name", "nrp"),
+                    Participant("1", "name", "nrp"),
+                    Participant("1", "name", "nrp"),
+                )),
+                Activity("1", "", "", "", "",  arrayListOf(
+                    Participant("1", "name", "nrp"),
+                    Participant("1", "name", "nrp"),
+                ))
             )
         )
-        b.recyclerActivityStudent.visibility = View.GONE
+        b.recyclerActivity.visibility = View.GONE
     }
 
     private fun getListAppointment() {
         appointmentAdapter.clear()
         appointmentAdapter.addList(listOf(
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
+            Appointment("1", "", "", "", "",  Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
+            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
         ))
-        b.recyclerAppointmentStudent.visibility = View.GONE
+        b.recyclerAppointment.visibility = View.GONE
     }
 
     override fun onItemClickListener(data: Appointment) {
         val intent = Intent(activity?.applicationContext, DetailAppointmentActivity::class.java)
+        intent.putExtra(Constant.IS_LECTURE, true)
         startActivity(intent)
     }
 
     override fun onItemClickListener(data: Activity) {
         val intent = Intent(activity?.applicationContext, DetailActivityActivity::class.java)
+        intent.putExtra(Constant.IS_LECTURE, true)
         startActivity(intent)
     }
 }

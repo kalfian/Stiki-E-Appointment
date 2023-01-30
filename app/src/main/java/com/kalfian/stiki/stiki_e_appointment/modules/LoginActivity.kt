@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityLoginBinding
+import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -17,9 +18,15 @@ class LoginActivity : AppCompatActivity() {
         setContentView(v)
 
         b.btnLogin.setOnClickListener {
-            val intent = Intent(this, DashboardStudentActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            if (b.emailEdit.text.toString() == "dosen@mail.com") {
+                val intent = Intent(this, DashboardLectureActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, DashboardStudentActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
         }
     }
 }

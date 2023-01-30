@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    tools:context=".modules.student.DetailActivityActivity">
+    tools:context=".modules.activity.DetailActivityActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_home_student"
@@ -68,11 +68,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
                         android:orientation="horizontal"
-                        android:gravity="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:gravity="center">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -115,6 +111,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/container_list_participant"
                         android:paddingTop="32dp"
                         android:paddingBottom="32dp"
                         android:paddingLeft="16dp"
@@ -123,11 +120,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:orientation="vertical">
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Partisipan" />
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_list_participant"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="32dp"
+                        android:paddingBottom="32dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:layout_margin="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_white"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -205,6 +222,20 @@
                                 android:text="Zoom meet\nHttps://zoom.com/anu1234556" />
                         </LinearLayout>
 
+                        <Button
+                            android:layout_marginTop="16dp"
+                            android:id="@+id/btn_change_status_logbook"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_round_blue"
+                            app:backgroundTint="@null"
+                            android:padding="8dp"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:text="Ganti Status"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white" />
+
                     </LinearLayout>
 
                     <Button
@@ -215,6 +246,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/btn_round_yellow"
                         app:backgroundTint="@null"
+                        android:layout_marginBottom="16dp"
                         android:padding="6dp"
                         android:textSize="14sp"
                         android:fontFamily="@font/ubuntu_bold"

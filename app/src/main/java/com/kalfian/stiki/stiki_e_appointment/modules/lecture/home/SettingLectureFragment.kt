@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.modules.student.home
+package com.kalfian.stiki.stiki_e_appointment.modules.lecture.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,20 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kalfian.stiki.stiki_e_appointment.R
-import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
 
-class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
+class SettingLectureFragment : Fragment(R.layout.fragment_setting_lecture) {
 
-    private lateinit var b: FragmentSettingStudentBinding
+    private lateinit var b: FragmentSettingLectureBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        b = FragmentSettingStudentBinding.inflate(inflater, container, false)
+        b = FragmentSettingLectureBinding.inflate(inflater, container, false)
         return b.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
