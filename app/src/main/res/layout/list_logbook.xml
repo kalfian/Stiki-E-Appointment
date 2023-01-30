@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_baseline_access_time_24"
+                app:tint="@color/blue" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="31 Januari 2023 13:00" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/ubuntu_regular"
+            android:text="Bimbingan Bab 1 oleh dosen pembimbing 1 terkait progress bab 1, dengan revisi A, B, dan C yang batas pengumpulannya H + 1" />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:text="Disetujui"
+            app:chipBackgroundColor="@color/green"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

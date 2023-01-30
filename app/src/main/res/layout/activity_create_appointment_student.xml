@@ -197,6 +197,21 @@
                                 android:inputType="textMultiLine"
                                 android:padding="16dp" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+                            <CheckBox
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Dosen 1"/>
+
+                            <CheckBox
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Dosen 2"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <Button

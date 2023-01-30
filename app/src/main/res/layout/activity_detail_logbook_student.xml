@@ -51,8 +51,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                    </LinearLayout>
                     <include
-                        layout="@layout/head_with_back"
+                        layout="@layout/head_with_back_add"
                         android:id="@+id/nav"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,51 +120,11 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingTop="32dp"
-                        android:paddingBottom="32dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:layout_margin="16dp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_list_logbook"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_white"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_bold"
-                                android:text="Partisipan" />
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_list_participant"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp" />
-
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_go_logbook"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/btn_round_yellow"
-                        app:backgroundTint="@null"
-                        android:padding="6dp"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:text="Kelola Logbook"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_blue" />
+                        android:layout_marginTop="16dp" />
 
                 </LinearLayout>
 

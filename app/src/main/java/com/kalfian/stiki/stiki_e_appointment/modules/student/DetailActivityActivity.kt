@@ -1,5 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.student
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -28,6 +29,11 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
 
         setupListParticipant()
         getListParticipant()
+
+        b.btnGoLogbook.setOnClickListener{
+            val intent = Intent(this, DetailLogbookStudentActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupListParticipant() {
