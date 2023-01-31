@@ -4,8 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Telephony.Mms.Part
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.R
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListParticipantAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
@@ -56,6 +60,21 @@ class DetailAppointmentActivity : AppCompatActivity(), ListParticipantAdapter.Ad
             val intent = Intent(this, ChatActivity::class.java)
             intent.putExtra(Constant.IS_LECTURE, isLecture)
             startActivity(intent)
+        }
+
+        b.btnChangeStatusLogbook.setOnClickListener {
+            val dialog = BottomSheetDialog(this, R.style.Theme_Design_Light_BottomSheetDialog)
+            val dialogView = LayoutInflater.from(applicationContext).inflate(
+                com.kalfian.stiki.stiki_e_appointment.R.layout.status_bottom_sheet,
+                findViewById<LinearLayout>(com.kalfian.stiki.stiki_e_appointment.R.id.status_bottom_sheet)
+            )
+
+            dialogView.findViewById<View>(com.kalfian.stiki.stiki_e_appointment.R.id.bottom_close_btn).setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.setContentView(dialogView)
+            dialog.show()
         }
 
     }
