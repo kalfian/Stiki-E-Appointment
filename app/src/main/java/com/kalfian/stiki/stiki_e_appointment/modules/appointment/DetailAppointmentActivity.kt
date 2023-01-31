@@ -1,5 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Telephony.Mms.Part
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListParticipantAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
+import com.kalfian.stiki.stiki_e_appointment.modules.chat.ChatActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 
 class DetailAppointmentActivity : AppCompatActivity(), ListParticipantAdapter.AdapterParticipantOnClickListener {
@@ -48,6 +51,13 @@ class DetailAppointmentActivity : AppCompatActivity(), ListParticipantAdapter.Ad
         b.nav.backButton.setOnClickListener {
             finish()
         }
+
+        b.btnChat.setOnClickListener {
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(Constant.IS_LECTURE, isLecture)
+            startActivity(intent)
+        }
+
     }
 
     override fun onItemClickListener(data: Participant) {

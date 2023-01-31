@@ -7,16 +7,20 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivitySplashscreenBinding
+import com.onesignal.OneSignal
 
 class SplashscreenActivity : AppCompatActivity() {
     private val SPLASH_TIME: Long = 2000
     private lateinit var b: ActivitySplashscreenBinding
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivitySplashscreenBinding.inflate(layoutInflater)
         val v = b.root
         setContentView(v)
+
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 

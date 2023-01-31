@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray">
+
+    <LinearLayout
+        android:layout_gravity="right"
+        android:id="@+id/layout_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/round_left"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/participant_right"
+                android:layout_width="match_parent"
+                android:textAlignment="viewEnd"
+                android:fontFamily="@font/ubuntu_bold"
+                android:layout_height="wrap_content"
+                android:text="Mahasiswa"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textAlignment="viewEnd"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_height="wrap_content"
+                android:text="tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:textAlignment="viewEnd"
+            android:fontFamily="@font/ubuntu_regular"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="3 Mar 2022 01:00:00"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="left"
+        android:id="@+id/layout_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/round_right"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/participant_left"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/ubuntu_bold"
+                android:layout_height="wrap_content"
+                android:text="Dosen 1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:textAlignment="viewStart"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_height="wrap_content"
+                android:text="tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:textAlignment="viewStart"
+            android:fontFamily="@font/ubuntu_regular"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="3 Mar 2022 01:00:00"/>
+    </LinearLayout>
+</LinearLayout>

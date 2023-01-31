@@ -239,7 +239,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_login"
+                        android:id="@+id/btn_chat"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_width="match_parent"

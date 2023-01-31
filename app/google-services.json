@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467469084706",
+    "project_id": "stiki-e-appointment",
+    "storage_bucket": "stiki-e-appointment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467469084706:android:22f74d9f7b31a863e9c27b",
+        "android_client_info": {
+          "package_name": "com.kalfian.stiki.stiki_e_appointment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467469084706-aob26ptcuur9siio9bq4pdokqcgnfku5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuX05Ns1qIJbt75N9dofHETSe2aOrSRZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467469084706-aob26ptcuur9siio9bq4pdokqcgnfku5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

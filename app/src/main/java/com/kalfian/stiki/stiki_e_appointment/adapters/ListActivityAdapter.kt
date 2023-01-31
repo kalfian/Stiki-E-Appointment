@@ -57,8 +57,6 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener, isLecture
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_activity, parent, false)
-        participantAdapter =
-
         return ViewHolder(v, onClickAdapter)
     }
 
