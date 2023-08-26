@@ -4,4 +4,6 @@ import android.content.Context
 
 object Constant {
     const val IS_LECTURE = "is_lecture"
+
+    const val KEYSTORE_TOKEN = "keystore_token"
 }

@@ -7,12 +7,14 @@ plugins {
 
 android {
     namespace 'com.kalfian.stiki.stiki_e_appointment'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
+        buildConfigField "String", "BASE_URL", "\"http://localhost:8000/\""
+
         applicationId "com.kalfian.stiki.stiki_e_appointment"
         minSdk 26
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
