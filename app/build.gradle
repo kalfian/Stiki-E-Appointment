@@ -3,6 +3,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -10,7 +11,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        buildConfigField "String", "BASE_URL", "\"http://localhost:8000/\""
+        buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8000/api/\""
 
         applicationId "com.kalfian.stiki.stiki_e_appointment"
         minSdk 26
@@ -55,6 +56,8 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
     implementation 'com.github.Spikeysanju:MotionToast:1.4'
+    implementation 'com.github.leandroborgesferreira:loading-button-android:2.3.0'
+
 
     implementation 'pub.devrel:easypermissions:3.0.0'
 
@@ -68,6 +71,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 }

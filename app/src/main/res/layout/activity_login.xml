@@ -55,6 +55,7 @@
                 android:textSize="14sp"
                 android:fontFamily="@font/ubuntu_medium"/>
             <EditText
+                android:id="@+id/password_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
@@ -64,18 +65,19 @@
                 android:inputType="textPassword"
                 android:padding="12dp" />
 
-            <Button
+            <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_round_yellow"
+                android:text="Masuk"
+                android:textSize="18sp"
                 app:backgroundTint="@null"
                 android:padding="8dp"
-                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/ubuntu_bold"
-                android:text="Masuk"
                 android:textAllCaps="false"
-                android:textColor="@color/dark_blue" />
+                android:textColor="@color/dark_blue"
+                android:background="@drawable/btn_round_yellow" />
 
         </LinearLayout>
     </ScrollView>
