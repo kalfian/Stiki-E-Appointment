@@ -3,19 +3,17 @@ package com.kalfian.stiki.stiki_e_appointment.modules
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.content.res.ResourcesCompat
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityLoginBinding
+import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.requests.LoginRequest
-import com.kalfian.stiki.stiki_e_appointment.responses.LoginResponse
+import com.kalfian.stiki.stiki_e_appointment.responses.loginResponse.LoginResponse
+import com.kalfian.stiki.stiki_e_appointment.utils.KeystoreUtils
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import retrofit2.Call
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -34,16 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         b.btnLogin.setOnClickListener {
             authLogin(b.emailEdit.text.toString(), b.passwordEdit.text.toString())
-
-//            if (b.emailEdit.text.toString() == "dosen@mail.com") {
-//                val intent = Intent(this, DashboardLectureActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(intent)
-//            } else {
-//                val intent = Intent(this, DashboardStudentActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(intent)
-//            }
         }
     }
 
@@ -69,10 +57,40 @@ class LoginActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     b.btnLogin.revertAnimation()
+                    val data = response.body()?.data
+
+                    if(data != null) {
+                        var role = "student"
+                        if (data.user.role.name == "lecture") {
+                            role = "lecturer"
+                        }
+
+                        val keystore = KeystoreUtils(this@LoginActivity)
+                        keystore.storeKey("user", Json.encodeToString(data).toByteArray())
+
+                        var intent = Intent(this@LoginActivity, DashboardStudentActivity::class.java)
+
+                        if (role == "lecturer") {
+                            intent = Intent(this@LoginActivity, DashboardLectureActivity::class.java)
+                        }
+
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        return
+                    }
+
+                    MotionToast.createColorToast(this@LoginActivity,"Login Gagal!",
+                        "Email atau Password salah! [2]",
+                        MotionToastStyle.ERROR,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.LONG_DURATION,
+                        ResourcesCompat.getFont(this@LoginActivity, R.font.ubuntu_regular)
+                    )
+
                 } else {
 
                     val responseError = RetrofitClient.mapJsonToDataClass<LoginResponse>(response.errorBody())
-                    var errorMessage = "Email atau Password salah!"
+                    var errorMessage = "Email atau Password salah! [1]"
                     if (responseError != null) {
                         errorMessage = responseError.message
                     }
