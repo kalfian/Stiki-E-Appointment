@@ -10,10 +10,9 @@ import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureAct
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.requests.LoginRequest
 import com.kalfian.stiki.stiki_e_appointment.responses.loginResponse.LoginResponse
-import com.kalfian.stiki.stiki_e_appointment.utils.KeystoreUtils
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import retrofit2.Call
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
@@ -38,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
     private fun authLogin(email: String, password: String) {
         b.btnLogin.startAnimation()
 
-        if (email.isNullOrBlank() || password.isNullOrBlank()) {
+        if (email.isBlank() || password.isBlank()) {
             MotionToast.createColorToast(this@LoginActivity,"Login Gagal!",
                 "Email atau Password tidak boleh kosong!",
                 MotionToastStyle.ERROR,
@@ -46,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 MotionToast.LONG_DURATION,
                 ResourcesCompat.getFont(this@LoginActivity, R.font.ubuntu_regular)
             )
-            b.btnLogin.revertAnimation();
+            b.btnLogin.revertAnimation()
             return
         }
 
@@ -60,17 +59,19 @@ class LoginActivity : AppCompatActivity() {
                     val data = response.body()?.data
 
                     if(data != null) {
-                        var role = "student"
-                        if (data.user.role.name == "lecture") {
-                            role = "lecturer"
+                        var role = Constant.ROLE_STUDENT
+                        if (data.user.role.name == Constant.ROLE_LECTURE) {
+                            role = Constant.ROLE_LECTURE
                         }
 
-                        val keystore = KeystoreUtils(this@LoginActivity)
-                        keystore.storeKey("user", Json.encodeToString(data).toByteArray())
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_ROLE, data.user.role.name)
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_NAME, data.user.name)
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_IDENTITY, data.user.identity)
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_TOKEN, data.token)
 
                         var intent = Intent(this@LoginActivity, DashboardStudentActivity::class.java)
 
-                        if (role == "lecturer") {
+                        if (role == Constant.ROLE_LECTURE) {
                             intent = Intent(this@LoginActivity, DashboardLectureActivity::class.java)
                         }
 
