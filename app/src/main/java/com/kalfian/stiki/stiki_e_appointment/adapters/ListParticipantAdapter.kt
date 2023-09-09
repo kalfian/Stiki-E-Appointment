@@ -9,10 +9,9 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ListParticipantBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import kotlin.collections.ArrayList
 
-class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, showLogBook: Boolean): RecyclerView.Adapter<ListParticipantAdapter.ViewHolder>() {
+class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, private var showLogBook: Boolean): RecyclerView.Adapter<ListParticipantAdapter.ViewHolder>() {
     private var list = ArrayList<Participant>()
     private var onClickAdapter = onClick
-    private var showLogBook = showLogBook
 
     interface AdapterParticipantOnClickListener {
         fun onItemClickListener(data: Participant)
@@ -32,6 +31,9 @@ class ListParticipantAdapter(onClick: AdapterParticipantOnClickListener, showLog
                     clickListener.onBtnLogbookClickListener(list[adapterPosition])
                 }
             }
+
+            b.participantName.text = v.user.name
+            b.participantIdentity.text = v.user.identity
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])

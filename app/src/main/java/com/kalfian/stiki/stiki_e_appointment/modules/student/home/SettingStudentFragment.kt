@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
-import com.kalfian.stiki.stiki_e_appointment.responses.MessageResponse
+import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Response

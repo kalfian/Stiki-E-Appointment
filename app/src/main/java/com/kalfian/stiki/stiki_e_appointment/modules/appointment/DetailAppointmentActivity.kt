@@ -47,7 +47,7 @@ class DetailAppointmentActivity : AppCompatActivity(), ListParticipantAdapter.Ad
 
             participantAdapter.clear()
             participantAdapter.addList(listOf(
-                Participant("1", "1", "1")
+
             ))
         }
 

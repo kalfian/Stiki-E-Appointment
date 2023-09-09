@@ -8,4 +8,10 @@
     <string name="beranda">Beranda</string>
     <string name="bimbingan">Bimbingan</string>
     <string name="pengaturan">Pengaturan</string>
+    <string name="none">-</string>
+    <string name="no_activity">Kegiatan tidak ditemukan</string>
+    <string name="appointment_title">Jadwal Bimbingan</string>
+    <string name="no_appointment">Jadwal tidak ditemukan</string>
+    <string name="partisipan">Partisipan</string>
+    <string name="kelola_logbook">Kelola Logbook</string>
 </resources>

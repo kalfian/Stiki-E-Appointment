@@ -17,6 +17,7 @@ import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import com.kalfian.stiki.stiki_e_appointment.modules.activity.DetailActivityActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 
 
 class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
@@ -83,34 +84,12 @@ class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
 
     private fun getListActivity() {
         appointmentAdapter.clear()
-        activityAdapter.addList(
-            listOf(
-                Activity("1", "", "", "", "", arrayListOf(
-                    Participant("1", "name", "nrp"),
-                    Participant("1", "name", "nrp"),
-                    Participant("1", "name", "nrp"),
-                    Participant("1", "name", "nrp"),
-                )),
-                Activity("1", "", "", "", "",  arrayListOf(
-                    Participant("1", "name", "nrp"),
-                    Participant("1", "name", "nrp"),
-                ))
-            )
-        )
+
         b.recyclerActivity.visibility = View.GONE
     }
 
     private fun getListAppointment() {
         appointmentAdapter.clear()
-        appointmentAdapter.addList(listOf(
-            Appointment("1", "", "", "", "",  Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-            Appointment("1", "", "", "", "", Participant("1", "name", "nrp")),
-        ))
         b.recyclerAppointment.visibility = View.GONE
     }
 

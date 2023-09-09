@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.responses
+package com.kalfian.stiki.stiki_e_appointment.models.global
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable

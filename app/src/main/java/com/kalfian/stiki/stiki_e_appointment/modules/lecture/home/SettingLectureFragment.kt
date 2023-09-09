@@ -12,7 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
-import com.kalfian.stiki.stiki_e_appointment.responses.MessageResponse
+import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import retrofit2.Call

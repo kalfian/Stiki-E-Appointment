@@ -12,4 +12,6 @@ object Constant {
     const val SHARED_ROLE = "shared_role"
     const val SHARED_NAME = "shared_name"
     const val SHARED_IDENTITY = "shared_identity"
+
+    const val DETAIL_ACTIVITY_ID = "id"
 }

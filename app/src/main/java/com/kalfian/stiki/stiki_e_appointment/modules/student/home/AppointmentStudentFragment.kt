@@ -64,13 +64,6 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     private fun getListAppointment() {
         appointmentAdapter.clear()
         appointmentAdapter.addList(listOf(
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
-            Appointment("1", "", "", "", ""),
         ))
         b.recyclerAppointmentStudent.visibility = View.GONE
     }

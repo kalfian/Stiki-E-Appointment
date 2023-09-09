@@ -3,8 +3,11 @@ package com.kalfian.stiki.stiki_e_appointment.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListActivityBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
@@ -31,17 +34,34 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener, isLecture
                 clickListener.onItemClickListener(list[adapterPosition])
             }
 
-            if (isLecture && activity.participants.isNotEmpty()) {
+            if (isLecture && activity.students.isNotEmpty()) {
                 val lm = LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
                 b.recyclerListParticipant.layoutManager = lm
                 participantAdapter = ListParticipantAdapter(this, false)
                 b.recyclerListParticipant.adapter = participantAdapter
 
                 participantAdapter.clear()
-                participantAdapter.addList(activity.participants)
+                activity.students?.let { participantAdapter.addList(it) }
             } else {
                 b.containerListParticipant.visibility = View.GONE
             }
+
+            b.activityName.text = activity.name
+            b.activityDate.text = "${activity.startDate} - ${activity.endDate}"
+            b.activityLocation.text = activity.location
+            Glide.with(itemView.context)
+                .load(activity.bannerThumbnail)
+                .placeholder(CircularProgressDrawable(itemView.context).apply {
+                    setColorSchemeColors(
+                        ContextCompat.getColor(itemView.context, R.color.dark_blue)
+                    )
+
+                    strokeWidth = 2f
+                    centerRadius = 10f
+                    start()
+                })
+                .error(R.drawable.noimage)
+                .into(b.activityBanner)
 
         }
 
