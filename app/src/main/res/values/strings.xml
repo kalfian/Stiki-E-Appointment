@@ -14,4 +14,5 @@
     <string name="no_appointment">Jadwal tidak ditemukan</string>
     <string name="partisipan">Partisipan</string>
     <string name="kelola_logbook">Kelola Logbook</string>
+    <string name="close_button">Close Button</string>
 </resources>

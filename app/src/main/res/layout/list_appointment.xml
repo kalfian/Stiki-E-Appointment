@@ -36,10 +36,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/student_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ubuntu_bold"
@@ -47,6 +48,7 @@
                     android:textColor="@color/blue" />
 
                 <TextView
+                    android:id="@+id/student_identity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/ubuntu_regular"
@@ -62,8 +64,9 @@
 
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/appointment_title"
                 android:layout_marginBottom="4dp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:fontFamily="@font/ubuntu_medium"
                 android:textColor="@color/blue"
                 android:textSize="16sp"
@@ -74,12 +77,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/appointment_description"
             android:layout_marginBottom="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:fontFamily="@font/ubuntu_regular"
-            android:text="Bimbingan Bab 1 oleh dosen pembimbing 1 terkait ...." />
+            android:text="Bimbingan Bab 1 oleh dosen pembimbing 1 terkait lorem ipsum dolor sit amet ...." />
         
         <LinearLayout
             android:paddingTop="4dp"
@@ -94,6 +98,7 @@
                 android:src="@drawable/ic_baseline_location_on_24"
                 app:tint="@color/blue" />
             <TextView
+                android:id="@+id/appointment_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
@@ -111,21 +116,43 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/ic_baseline_access_time_24"
+                android:src="@drawable/baseline_alarm_24"
                 app:tint="@color/blue" />
             <TextView
+                android:id="@+id/appointment_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:fontFamily="@font/ubuntu_regular"
-                android:text="31 Januari 2023 13:00 - 14:00" />
+                android:text="31 Januari 2023 13:00" />
         </LinearLayout>
 
         <LinearLayout
             android:paddingTop="4dp"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
-            android:id="@+id/container_dosen1"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/baseline_alarm_on_24"
+                app:tint="@color/blue" />
+            <TextView
+                android:id="@+id/appointment_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="31 Januari 2023 17:00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="4dp"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/container_lecture1"
             android:gravity="center_vertical"
             android:layout_height="wrap_content">
             <ImageView
@@ -135,6 +162,7 @@
                 android:src="@drawable/ic_baseline_person_24"
                 app:tint="@color/blue" />
             <TextView
+                android:id="@+id/appointment_lecturer1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
@@ -144,7 +172,7 @@
 
         <LinearLayout
             android:paddingTop="4dp"
-            android:id="@+id/container_dosen2"
+            android:id="@+id/container_lecture2"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -156,6 +184,7 @@
                 android:src="@drawable/ic_baseline_person_24"
                 app:tint="@color/blue" />
             <TextView
+                android:id="@+id/appointment_lecturer2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"

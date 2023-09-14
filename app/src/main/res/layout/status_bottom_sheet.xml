@@ -25,11 +25,12 @@
 
         <Button
             android:id="@+id/bottom_close_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/ic_baseline_close_24"
             android:textColor="@color/black"
             android:textSize="18sp"
+            android:contentDescription="@string/close_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
