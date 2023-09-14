@@ -27,4 +27,11 @@ interface StudentAPI {
         @Path("id") activityId: Int,
         @Body request: CreateAppointmentRequest
     ): Call<MessageResponse>
+
+    @GET("v1/student/appointment")
+    fun getStudentAppointment(
+        @Path("id") activityId: Int,
+        @Query("load_students") loadStudents: Boolean = false,
+        @Query("load_lectures") loadLectures: Boolean = false
+    )
 }
