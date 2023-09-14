@@ -190,11 +190,11 @@
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Tanggal" />
+                                android:text="Tanggal Mulai" />
 
 
                             <EditText
-                                android:id="@+id/date_input"
+                                android:id="@+id/start_date_input"
                                 android:inputType="date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -207,7 +207,46 @@
                                 android:padding="16dp" />
 
                             <TextView
-                                android:id="@+id/date_error"
+                                android:id="@+id/start_date_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/red"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="8dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Tanggal Mulai" />
+
+
+                            <EditText
+                                android:id="@+id/end_date_input"
+                                android:inputType="date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:focusableInTouchMode="false"
+                                android:ems="10"
+                                android:padding="16dp" />
+
+                            <TextView
+                                android:id="@+id/end_date_error"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"

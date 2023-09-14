@@ -25,4 +25,23 @@ object Alert {
             font
         )
     }
+
+    fun showSuccess(
+        activity: Activity,
+        message: String,
+        description: String,
+        gravity: Int = MotionToast.GRAVITY_BOTTOM,
+        duration: Long = MotionToast.LONG_DURATION,
+        font: android.graphics.Typeface? = ResourcesCompat.getFont(activity, R.font.ubuntu_regular)
+    ) {
+        MotionToast.createColorToast(
+            activity,
+            message,
+            description,
+            MotionToastStyle.SUCCESS,
+            gravity,
+            duration,
+            font
+        )
+    }
 }

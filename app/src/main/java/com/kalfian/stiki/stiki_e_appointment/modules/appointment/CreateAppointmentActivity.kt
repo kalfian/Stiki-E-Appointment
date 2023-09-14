@@ -20,6 +20,7 @@ import com.kalfian.stiki.stiki_e_appointment.utils.showDatePickerDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import setupDateTimePicker
 import java.util.Calendar
 import java.util.Locale
 
@@ -34,7 +35,8 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
     private var requestActivityId = 0
     private var requestTitle = ""
-    private var requestDate = ""
+    private var requestStartDate = ""
+    private var requestEndDate = ""
     private var requestDescription = ""
     private var requestLocation = ""
     private var requestLectureIds = arrayListOf<Int>()
@@ -66,10 +68,15 @@ class CreateAppointmentActivity : AppCompatActivity() {
             submitInput()
         }
 
-        b.dateInput.showDatePickerDialog(this, callback = { dateShowed, dateDB ->
-            b.dateInput.setText(dateShowed)
-            requestDate = dateDB
-        })
+        b.startDateInput.setupDateTimePicker(this) { selected, selectedDB ->
+            b.startDateInput.setText(selected)
+            requestStartDate = selectedDB
+        }
+
+        b.endDateInput.setupDateTimePicker(this) { selected, selectedDB ->
+            b.endDateInput.setText(selected)
+            requestEndDate = selectedDB
+        }
     }
     private  fun setupListActivity() {
         arrayAdapter = ArrayAdapter(this, androidx.transition.R.layout.support_simple_spinner_dropdown_item)
@@ -172,7 +179,8 @@ class CreateAppointmentActivity : AppCompatActivity() {
     private fun resetError() {
         b.activityError.text = ""
         b.titleError.text = ""
-        b.dateError.text = ""
+        b.startDateError.text = ""
+        b.endDateError.text = ""
         b.descriptionError.text = ""
         b.locationError.text = ""
         b.lectureError.text = ""
@@ -184,12 +192,11 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
         requestLectureIds = selectedItems.map { it.id } as ArrayList<Int>
         requestTitle = b.titleInput.text.toString()
-        requestDate = b.dateInput.text.toString()
         requestDescription = b.descriptionInput.text.toString()
         requestLocation = b.locationInput.text.toString()
 
         val request = CreateAppointmentRequest(
-            requestTitle, requestDate, requestDescription, requestLocation, requestLectureIds
+            requestTitle, requestStartDate, requestEndDate , requestDescription, requestLocation, requestLectureIds
         )
 
         RetrofitClient.callAuth(applicationContext).postStudentAppointment(requestActivityId, request).enqueue(object : Callback<MessageResponse> {
@@ -215,8 +222,12 @@ class CreateAppointmentActivity : AppCompatActivity() {
                             b.titleError.text = value.joinToString(",")
                         }
 
-                        if (key == "date") {
-                            b.dateError.text = value.joinToString(",")
+                        if (key == "start_date") {
+                            b.startDateError.text = value.joinToString(",")
+                        }
+
+                        if (key == "end_date") {
+                            b.endDateError.text = value.joinToString(",")
                         }
 
                         if (key == "description") {
@@ -234,6 +245,13 @@ class CreateAppointmentActivity : AppCompatActivity() {
 
                     return
                 }
+
+                Alert.showSuccess(
+                    this@CreateAppointmentActivity,
+                    "Berhasil membuat bimbingan!",
+                    "Bimbingan anda telah berhasil dibuat"
+                )
+                finish()
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
