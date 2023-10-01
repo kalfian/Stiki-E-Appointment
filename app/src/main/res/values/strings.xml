@@ -18,4 +18,9 @@
     <string name="tambah_bimbingan">Tambah Bimbingan</string>
     <string name="ganti_status">Ganti Status</string>
     <string name="kegiatan">Kegiatan</string>
+    <string name="masalah">Masalah</string>
+    <string name="bukti">Bukti</string>
+    <string name="komentar_pembimbing">Komentar pembimbing</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="tambah_logbook">Tambah Logbook</string>
 </resources>

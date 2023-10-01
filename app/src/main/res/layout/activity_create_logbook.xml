@@ -81,21 +81,26 @@
 
                             <TextView
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Tanggal" />
+                                android:labelFor="@+id/logbook_date"
+                                android:text="@string/tanggal" />
 
 
                             <EditText
+                                android:id="@+id/logbook_date"
                                 android:inputType="date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/input_round"
                                 android:drawablePadding="16dp"
                                 android:ems="10"
+                                android:focusable="false"
+                                android:clickable="true"
+                                android:focusableInTouchMode="false"
                                 android:padding="16dp" />
                         </LinearLayout>
                         <LinearLayout
@@ -105,23 +110,83 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/logbook_description"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Kegiatan" />
+                                android:text="@string/kegiatan" />
 
 
                             <EditText
+                                android:id="@+id/logbook_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:minLines="6"
                                 android:background="@drawable/input_round"
                                 android:drawablePadding="16dp"
                                 android:ems="10"
-                                android:gravity="top|left"
+                                android:gravity="start"
+                                android:inputType="textMultiLine"
+                                android:padding="16dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:labelFor="@+id/logbook_problem"
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="match_parent"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/masalah" />
+
+
+                            <EditText
+                                android:id="@+id/logbook_problem"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minLines="1"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:gravity="start"
+                                android:inputType="textMultiLine"
+                                android:padding="16dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="16dp"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:labelFor="@+id/logbook_proof"
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="match_parent"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bukti" />
+
+
+                            <EditText
+                                android:id="@+id/logbook_proof"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minLines="1"
+                                android:background="@drawable/input_round"
+                                android:drawablePadding="16dp"
+                                android:ems="10"
+                                android:gravity="start"
                                 android:inputType="textMultiLine"
                                 android:padding="16dp" />
                         </LinearLayout>
@@ -138,7 +203,7 @@
                         android:padding="6dp"
                         android:textSize="14sp"
                         android:fontFamily="@font/ubuntu_bold"
-                        android:text="Tambah Logbook"
+                        android:text="@string/tambah_logbook"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_blue" />
 

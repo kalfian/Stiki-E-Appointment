@@ -33,24 +33,88 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
                 android:fontFamily="@font/ubuntu_regular"
-                android:text="31 Januari 2023 13:00" />
+                android:text="@string/none" />
         </LinearLayout>
-
-        <TextView
-            android:layout_marginBottom="4dp"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:fontFamily="@font/ubuntu_regular"
-            android:text="Bimbingan Bab 1 oleh dosen pembimbing 1 terkait progress bab 1, dengan revisi A, B, dan C yang batas pengumpulannya H + 1" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:text="Disetujui"
-            app:chipBackgroundColor="@color/green"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content" />
-
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="@string/kegiatan" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/none" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="@string/masalah" />
+            <TextView
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/none" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="@string/bukti" />
+            <TextView
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:autoLink="all"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/none" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:fontFamily="@font/ubuntu_medium"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="@string/komentar_pembimbing" />
+            <TextView
+                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:fontFamily="@font/ubuntu_regular"
+                android:text="@string/none" />
+        </LinearLayout>
         <Button
             android:layout_marginTop="16dp"
             android:id="@+id/btn_change_status_logbook"
@@ -61,7 +125,7 @@
             android:padding="8dp"
             android:textSize="12sp"
             android:fontFamily="@font/ubuntu_bold"
-            android:text="Ganti Status"
+            android:text="Tambah Komentar"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
