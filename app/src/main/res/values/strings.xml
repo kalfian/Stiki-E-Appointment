@@ -15,4 +15,7 @@
     <string name="partisipan">Partisipan</string>
     <string name="kelola_logbook">Kelola Logbook</string>
     <string name="close_button">Close Button</string>
+    <string name="tambah_bimbingan">Tambah Bimbingan</string>
+    <string name="ganti_status">Ganti Status</string>
+    <string name="kegiatan">Kegiatan</string>
 </resources>

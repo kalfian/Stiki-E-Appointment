@@ -7,15 +7,15 @@ import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListParticipantAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailActivityBinding
+import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
@@ -25,7 +25,6 @@ import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import www.sanju.motiontoast.MotionToast
 
 class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.AdapterParticipantOnClickListener {
 
@@ -60,12 +59,12 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
             b.btnGoLogbook.visibility = View.VISIBLE
         }
 
-        setupPage()
+        setupPage(isLecture)
 
         setupListParticipant()
 
         b.swipeRefreshDetailActivity.setOnRefreshListener {
-            setupPage()
+            setupPage(isLecture)
             b.swipeRefreshDetailActivity.isRefreshing = false
         }
 
@@ -75,9 +74,19 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
         }
     }
 
-    private fun setupPage() {
+    private fun setupPage(isLecture: Boolean) {
         overlayLoader.show()
+        if (isLecture) {
+            setupLecturePage()
+        } else {
+            setupStudentPage()
+        }
+    }
 
+    private fun setupLecturePage() {
+
+    }
+    private fun setupStudentPage() {
         RetrofitClient.callAuth(applicationContext).getStudentActivityDetail(id).enqueue(object : Callback<GetActivityDetailResponse> {
             override fun onResponse(
                 call: Call<GetActivityDetailResponse>,
@@ -94,31 +103,7 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
                         return
                     }
 
-                    Glide.with(applicationContext)
-                        .load(data.banner)
-                        .placeholder(CircularProgressDrawable(applicationContext).apply {
-                            setColorSchemeColors(
-                                ContextCompat.getColor(applicationContext, R.color.dark_blue)
-                            )
-                            strokeWidth = 2f
-                            centerRadius = 10f
-                            start()
-                        })
-                        .error(R.drawable.noimage)
-                        .into(b.activityBanner)
-                    b.nav.headerTitle.text = data.name
-                    b.activityTitle.text = data.name
-                    b.activityLocation.text = data.location
-                    b.activityDate.text = buildString {
-                        append(data.startDate)
-                        append("-")
-                        append(data.endDate)
-                    }
-
-                    val spannedHtml = Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY)
-                    b.activityDescription.text = spannedHtml
-
-                    getListParticipant(data.students)
+                    attachData(data)
 
                     overlayLoader.hide()
                     return
@@ -148,6 +133,34 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
             }
 
         })
+    }
+
+    private fun attachData(data: Activity) {
+        Glide.with(applicationContext)
+            .load(data.banner)
+            .placeholder(CircularProgressDrawable(applicationContext).apply {
+                setColorSchemeColors(
+                    ContextCompat.getColor(applicationContext, R.color.dark_blue)
+                )
+                strokeWidth = 2f
+                centerRadius = 10f
+                start()
+            })
+            .error(R.drawable.noimage)
+            .into(b.activityBanner)
+        b.nav.headerTitle.text = data.name
+        b.activityTitle.text = data.name
+        b.activityLocation.text = data.location
+        b.activityDate.text = buildString {
+            append(data.startDate)
+            append("-")
+            append(data.endDate)
+        }
+
+        val spannedHtml = Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY)
+        b.activityDescription.text = spannedHtml
+
+        getListParticipant(data.students)
     }
     private fun setupListParticipant() {
         val lm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -9,7 +9,7 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityLoginBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.requests.LoginRequest
-import com.kalfian.stiki.stiki_e_appointment.models.auth_response.LoginResponse
+import com.kalfian.stiki.stiki_e_appointment.models.authResponse.LoginResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil

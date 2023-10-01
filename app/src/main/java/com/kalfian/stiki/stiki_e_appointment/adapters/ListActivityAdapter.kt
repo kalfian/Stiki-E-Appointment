@@ -34,18 +34,6 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener, isLecture
                 clickListener.onItemClickListener(list[adapterPosition])
             }
 
-            if (isLecture && activity.students.isNotEmpty()) {
-                val lm = LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
-                b.recyclerListParticipant.layoutManager = lm
-                participantAdapter = ListParticipantAdapter(this, false)
-                b.recyclerListParticipant.adapter = participantAdapter
-
-                participantAdapter.clear()
-                activity.students?.let { participantAdapter.addList(it) }
-            } else {
-                b.containerListParticipant.visibility = View.GONE
-            }
-
             b.activityName.text = activity.name
             b.activityDate.text = "${activity.startDate} - ${activity.endDate}"
             b.activityLocation.text = activity.location

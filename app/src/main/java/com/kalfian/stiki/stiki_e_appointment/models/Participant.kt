@@ -6,6 +6,7 @@ import java.io.Serializable
 data class Participant (
     @SerializedName("id") var id: String = "",
     @SerializedName("is_lecturer") var isLecturer: Int = 0,
+
     @SerializedName("user") var user: User = User(),
 
 ): Serializable

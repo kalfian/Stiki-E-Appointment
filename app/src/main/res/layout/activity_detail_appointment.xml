@@ -8,7 +8,7 @@
     tools:context=".modules.activity.DetailActivityActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_home_student"
+        android:id="@+id/swipe_refresh_detail_appointment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,38 +71,43 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/sample_activity_logo" />
+                            android:id="@+id/activity_banner"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/noimage" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="vertical"
-                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/activity_title"
                                 android:layout_marginBottom="4dp"
                                 android:layout_width="wrap_content"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="PT Taspen" />
+                                android:text="@string/none" />
 
                             <TextView
+                                android:id="@+id/activity_location"
                                 android:layout_marginBottom="4dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/gray"
                                 android:fontFamily="@font/ubuntu_regular"
-                                android:text="Jl. Mayor Jend. Di Panjaitan No.7, Pandean, Madiun" />
+                                android:text="@string/none" />
                             <TextView
+                                android:id="@+id/activity_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/blue"
                                 android:fontFamily="@font/ubuntu_regular"
-                                android:text="1 Januari 2023 - 30 April 2023" />
+                                android:text="@string/none" />
 
 
 
@@ -111,7 +116,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/container_list_participant"
+                        android:id="@+id/container_participant"
                         android:paddingTop="32dp"
                         android:paddingBottom="32dp"
                         android:paddingLeft="16dp"
@@ -121,18 +126,42 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
                         android:orientation="vertical">
-                            <TextView
-                                android:layout_marginBottom="8dp"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:backgroundTint="@color/blue"
+                                android:src="@drawable/ic_baseline_person_blue_24"
+                                app:riv_border_color="@color/blue"
+                                app:riv_border_width="2dp"
+                                app:riv_corner_radius="150dp" />
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:fontFamily="@font/ubuntu_medium"
-                                android:textColor="@color/blue"
-                                android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Partisipan" />
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_list_participant"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/participant_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/ubuntu_bold"
+                                    android:text="@string/none"
+                                    android:textColor="@color/blue" />
+
+                                <TextView
+                                    android:id="@+id/participant_identity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/ubuntu_regular"
+                                    android:text="@string/none"
+                                    android:textColor="@color/blue" />
+                            </LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -153,24 +182,24 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/textView"
+                                android:id="@+id/appointment_title"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/ubuntu_bold"
-                                android:text="Bimbingan Bab 1"
+                                android:text="@string/none"
                                 android:textColor="@color/blue"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/chip4"
+                                app:layout_constraintEnd_toStartOf="@+id/appointment_status"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.chip.Chip
-                                android:id="@+id/chip4"
+                                android:id="@+id/appointment_status"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"
                                 android:backgroundTint="@color/blue"
-                                android:text="selesai"
+                                android:text="@string/none"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -180,71 +209,122 @@
 
 
                         <TextView
+                            android:id="@+id/appointment_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/gray"
                             android:fontFamily="@font/ubuntu_regular"
                             android:layout_marginBottom="18dp"
-                            android:text="Bimbingan bab 1 Oleh dospem 1 : Chaulina Alfianti Oktavia, S.Kom, M.T" />
+                            android:text="@string/none" />
 
                         <LinearLayout
                             android:paddingTop="4dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
                             <ImageView
                                 android:layout_width="24dp"
                                 android:layout_height="24dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/ic_baseline_access_time_24"
-                                app:tint="@color/blue" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_regular"
-                                android:text="31 Januari 2023 13:00 - 14:00" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:paddingTop="4dp"
-                            android:layout_width="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="8dp"
-                                android:src="@drawable/ic_baseline_person_24"
-                                app:tint="@color/blue" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_regular"
-                                android:text="Dosen 1: Chaulina Alfianti Oktavia" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:paddingTop="4dp"
-                            android:layout_width="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="8dp"
+                                android:layout_marginEnd="8dp"
                                 android:src="@drawable/ic_baseline_location_on_24"
                                 app:tint="@color/blue" />
                             <TextView
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:id="@+id/appointment_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:text="@string/none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingTop="4dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/baseline_alarm_24"
+                                app:tint="@color/blue" />
+                            <TextView
+                                android:id="@+id/appointment_start_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/blue"
                                 android:fontFamily="@font/ubuntu_regular"
-                                android:text="Zoom meet\nHttps://zoom.com/anu1234556" />
+                                android:text="@string/none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingTop="4dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/baseline_alarm_on_24"
+                                app:tint="@color/blue" />
+                            <TextView
+                                android:id="@+id/appointment_end_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:text="@string/none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingTop="4dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:id="@+id/container_lecture1"
+                            android:gravity="center_vertical"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_baseline_person_24"
+                                app:tint="@color/blue" />
+                            <TextView
+                                android:id="@+id/appointment_lecturer1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:text="@string/none" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingTop="4dp"
+                            android:id="@+id/container_lecture2"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:visibility="gone"
+                            android:gravity="center_vertical"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_baseline_person_24"
+                                app:tint="@color/blue" />
+                            <TextView
+                                android:id="@+id/appointment_lecturer2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/blue"
+                                android:fontFamily="@font/ubuntu_regular"
+                                android:text="@string/none" />
                         </LinearLayout>
 
                         <Button
@@ -257,7 +337,7 @@
                             android:padding="8dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/ubuntu_bold"
-                            android:text="Ganti Status"
+                            android:text="@string/ganti_status"
                             android:textAllCaps="false"
                             android:textColor="@color/white" />
 

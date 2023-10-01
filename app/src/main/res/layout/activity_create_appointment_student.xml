@@ -80,13 +80,14 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/spinner_kegiatan"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Kegiatan" />
+                                android:text="@string/kegiatan" />
 
                             <Spinner
                                 android:id="@+id/spinner_kegiatan"
@@ -111,8 +112,9 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/title_input"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
@@ -129,7 +131,6 @@
                                 android:drawablePadding="16dp"
                                 android:ems="10"
                                 android:padding="16dp" />
-<!--                            Add Error message-->
                             <TextView
                                 android:id="@+id/title_error"
                                 android:layout_width="match_parent"
@@ -148,8 +149,9 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/description_input"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
@@ -159,11 +161,13 @@
 
                             <EditText
                                 android:id="@+id/description_input"
-                                android:inputType="text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/input_round"
                                 android:drawablePadding="16dp"
+                                android:gravity="top|left"
+                                android:minLines="6"
+                                android:inputType="textMultiLine"
                                 android:ems="10"
                                 android:padding="16dp" />
 
@@ -184,8 +188,9 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/start_date_input"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
@@ -223,13 +228,14 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/end_date_input"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
                                 android:layout_height="wrap_content"
-                                android:text="Tanggal Mulai" />
+                                android:text="Tanggal Akhir" />
 
 
                             <EditText
@@ -258,12 +264,12 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="vertical"
-                            android:layout_marginBottom="16dp"
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:labelFor="@+id/location_input"
                                 android:layout_marginBottom="8dp"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:fontFamily="@font/ubuntu_medium"
                                 android:textColor="@color/blue"
                                 android:textSize="16sp"
@@ -275,12 +281,10 @@
                                 android:id="@+id/location_input"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minLines="6"
                                 android:background="@drawable/input_round"
                                 android:drawablePadding="16dp"
                                 android:ems="10"
-                                android:gravity="top|left"
-                                android:inputType="textMultiLine"
+                                android:inputType="text"
                                 android:padding="16dp" />
 
                             <TextView
@@ -296,23 +300,31 @@
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_marginBottom="8dp"
+                                android:layout_width="match_parent"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/blue"
+                                android:textSize="16sp"
+                                android:layout_height="wrap_content"
+                                android:text="Dosen" />
                             <androidx.recyclerview.widget.RecyclerView
-                                android:padding="@dimen/dimen_0"
                                 android:id="@+id/recycler_select_lecture"
+                                android:background="@drawable/input_round"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/lecture_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:fontFamily="@font/ubuntu_medium"
+                                android:textColor="@color/red"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="8dp"/>
                         </LinearLayout>
-                        <TextView
-                            android:id="@+id/lecture_error"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:fontFamily="@font/ubuntu_medium"
-                            android:textColor="@color/red"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="8dp"/>
                     </LinearLayout>
 
                     <Button
@@ -327,7 +339,7 @@
                         android:padding="6dp"
                         android:textSize="14sp"
                         android:fontFamily="@font/ubuntu_bold"
-                        android:text="Tambah Bimbingan"
+                        android:text="@string/tambah_bimbingan"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_blue" />
 

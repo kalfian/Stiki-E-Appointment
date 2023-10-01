@@ -13,7 +13,11 @@ fun EditText.setupDateTimePicker(context: Context, callback: (selected: String, 
     }
 }
 
-private fun EditText.showDateTimePicker(context: Context, calendar: Calendar, callback: (selected: String, selectedDB: String) -> Unit) {
+private fun showDateTimePicker(
+    context: Context,
+    calendar: Calendar,
+    callback: (selected: String, selectedDB: String) -> Unit
+) {
 
     // Create a DatePickerDialog
     val datePickerDialog = DatePickerDialog(
@@ -32,7 +36,7 @@ private fun EditText.showDateTimePicker(context: Context, calendar: Calendar, ca
     datePickerDialog.show()
 }
 
-private fun EditText.showTimePicker(context: Context, calendar: Calendar, callback: (selected: String, selectedDB: String) -> Unit) {
+private fun showTimePicker(context: Context, calendar: Calendar, callback: (selected: String, selectedDB: String) -> Unit) {
     val initialHour = calendar.get(Calendar.HOUR_OF_DAY)
     val initialMinute = calendar.get(Calendar.MINUTE)
 

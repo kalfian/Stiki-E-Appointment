@@ -1,7 +1,9 @@
 package com.kalfian.stiki.stiki_e_appointment.utils.api
 
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityDetailResponse
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityResponse
+import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
 import retrofit2.Call
@@ -28,10 +30,27 @@ interface StudentAPI {
         @Body request: CreateAppointmentRequest
     ): Call<MessageResponse>
 
-    @GET("v1/student/appointment")
-    fun getStudentAppointment(
+    @GET("v1/student/activity/{id}/appointment")
+    fun getStudentAppointmentsByActivity(
         @Path("id") activityId: Int,
         @Query("load_students") loadStudents: Boolean = false,
         @Query("load_lectures") loadLectures: Boolean = false
     )
+
+    @GET("v1/student/appointment")
+    fun getStudentAppointments(
+        @Query("load_lectures") loadLectures: Boolean = false,
+        @Query("status") status: Int? = null,
+        @Query("order_by") orderBy: String = "start_date",
+        @Query("order") order: String = "desc",
+        @Query("limit") limit: Int = 10,
+        @Query("page") page: Int = 1,
+    ): Call<GetAppointmentsResponse>
+
+    @GET("v1/student/appointment/{id}")
+    fun getStudentAppointmentDetail(
+        @Path("id") id: Int,
+        @Query("load_students") loadStudents: Boolean = false,
+        @Query("load_lectures") loadLectures: Boolean = false
+    ): Call<GetAppointmentDetailResponse>
 }

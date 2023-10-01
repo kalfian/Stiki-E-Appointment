@@ -14,20 +14,17 @@ import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityResponse
 import com.kalfian.stiki.stiki_e_appointment.modules.activity.DetailActivityActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
-import kotlinx.coroutines.async
 
 
 class HomeStudentFragment : Fragment(R.layout.fragment_home_student),

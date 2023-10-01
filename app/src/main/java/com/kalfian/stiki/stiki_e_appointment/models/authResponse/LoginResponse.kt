@@ -1,4 +1,4 @@
-package com.kalfian.stiki.stiki_e_appointment.models.auth_response
+package com.kalfian.stiki.stiki_e_appointment.models.authResponse
 
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable

@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/dimen_8"
     android:paddingBottom="@dimen/dimen_8">
 
     <CheckBox

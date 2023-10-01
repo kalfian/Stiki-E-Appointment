@@ -14,4 +14,5 @@ object Constant {
     const val SHARED_IDENTITY = "shared_identity"
 
     const val DETAIL_ACTIVITY_ID = "id"
+    const val DETAIL_APPOINTMENT_ID = "id"
 }

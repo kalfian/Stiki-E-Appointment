@@ -39,7 +39,9 @@
                 <TextView
                     android:id="@+id/activity_name"
                     android:layout_marginBottom="4dp"
-                    android:layout_width="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_width="match_parent"
                     android:fontFamily="@font/ubuntu_medium"
                     android:textColor="@color/blue"
                     android:textSize="16sp"
@@ -49,9 +51,11 @@
                 <TextView
                     android:id="@+id/activity_location"
                     android:layout_marginBottom="4dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:fontFamily="@font/ubuntu_regular"
                     android:text="@string/none" />
                 <TextView
@@ -60,33 +64,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/ubuntu_regular"
-                    android:text="Lorem ipsum dolor sit amet" />
+                    android:text="@string/none" />
             </LinearLayout>
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/container_list_participant"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/light_gray"/>
-            <TextView
-                android:layout_marginBottom="8dp"
-                android:layout_width="wrap_content"
-                android:fontFamily="@font/ubuntu_medium"
-                android:textColor="@color/blue"
-                android:textSize="16sp"
-                android:layout_height="wrap_content"
-                android:text="Partisipan" />
-        </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_list_participant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

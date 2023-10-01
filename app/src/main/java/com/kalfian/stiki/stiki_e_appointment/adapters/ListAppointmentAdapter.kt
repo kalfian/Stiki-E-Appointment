@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
+import com.kalfian.stiki.stiki_e_appointment.utils.AppointmentStatus
 import kotlin.collections.ArrayList
 
 class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean, isLecture: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
@@ -36,9 +37,31 @@ class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLec
             }
 
             if (!showLecture) {
-                b.containerDosen1.visibility = View.GONE
-                b.containerDosen2.visibility = View.GONE
+                b.containerLecture1.visibility = View.GONE
+                b.containerLecture2.visibility = View.GONE
             }
+
+            b.studentName.text = v.student?.name ?: "-"
+            b.studentIdentity.text = v.student?.identity ?: "-"
+
+            b.appointmentTitle.text = v.title
+            b.appointmentStartDate.text = v.startDate
+            b.appointmentEndDate.text = v.endDate
+            b.appointmentLocation.text = v.location
+
+            b.appointmentDescription.text = v.description
+
+            b.appointmentLecturer1.text = v.lecture?.name ?: "-"
+            b.appointmentLecturer2.text = v.lecture2?.name ?: "-"
+
+            if (v.lecture2 == null) {
+                b.containerLecture2.visibility = View.GONE
+            }
+
+            b.status.text = v.statusText
+            b.status.chipBackgroundColor = AppointmentStatus().getStatusColor(v.status, itemView.context)
+
+
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])

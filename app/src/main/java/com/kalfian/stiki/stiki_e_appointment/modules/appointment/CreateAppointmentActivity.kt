@@ -1,28 +1,29 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListCheckLectureAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityCreateAppointmentStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.CheckLecture
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityDetailResponse
-import com.kalfian.stiki.stiki_e_appointment.models.activity_response.GetActivityResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.ErrorResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
-import com.kalfian.stiki.stiki_e_appointment.utils.showDatePickerDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import setupDateTimePicker
 import java.util.Calendar
-import java.util.Locale
 
 class CreateAppointmentActivity : AppCompatActivity() {
 
@@ -31,7 +32,6 @@ class CreateAppointmentActivity : AppCompatActivity() {
     private lateinit var listCheckLectureAdapter: ListCheckLectureAdapter
     private lateinit var overlayLoader: OverlayLoader
     var listActivity: List<Activity> = listOf()
-    private val calendar = Calendar.getInstance()
 
     private var requestActivityId = 0
     private var requestTitle = ""
@@ -77,6 +77,15 @@ class CreateAppointmentActivity : AppCompatActivity() {
             b.endDateInput.setText(selected)
             requestEndDate = selectedDB
         }
+
+        b.descriptionInput.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                // Insert a newline character when the Enter key is pressed
+                b.descriptionInput.text?.insert(b.descriptionInput.selectionStart, "\n")
+                return@setOnEditorActionListener true
+            }
+            false
+        }
     }
     private  fun setupListActivity() {
         arrayAdapter = ArrayAdapter(this, androidx.transition.R.layout.support_simple_spinner_dropdown_item)
@@ -84,7 +93,7 @@ class CreateAppointmentActivity : AppCompatActivity() {
     }
 
     private fun setupListLecture() {
-        val lm = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        val lm = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerSelectLecture.layoutManager = lm
         listCheckLectureAdapter = ListCheckLectureAdapter()
         b.recyclerSelectLecture.adapter = listCheckLectureAdapter
