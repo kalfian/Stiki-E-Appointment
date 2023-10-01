@@ -1,9 +1,16 @@
 package com.kalfian.stiki.stiki_e_appointment.models
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@kotlinx.serialization.Serializable
 data class Logbook (
-    var id: String = "",
-    var title: String = "",
-    var date: String = ""
+    @SerializedName("id") var id: Int = 0,
+    @SerializedName("appointment_id") var appointmentId: Int = 0,
+    @SerializedName("student_id") var studentId: Int = 0,
+    @SerializedName("date") var date: String = "",
+    @SerializedName("description") var description: String = "",
+    @SerializedName("problem") var problem: String? = null,
+    @SerializedName("logbook_proof") var logbookProof: String? = null,
+
 ): Serializable

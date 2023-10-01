@@ -5,7 +5,9 @@ import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivity
 import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
+import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbookDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
+import com.kalfian.stiki.stiki_e_appointment.requests.CreateLogbookRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -53,4 +55,11 @@ interface StudentAPI {
         @Query("load_students") loadStudents: Boolean = false,
         @Query("load_lectures") loadLectures: Boolean = false
     ): Call<GetAppointmentDetailResponse>
+
+    //Logbook
+    @POST("v1/student/activity/{id}/logbook")
+    fun postStudentLogbook(
+        @Path("id") activityId: Int,
+        @Body request: CreateLogbookRequest
+    ): Call<MessageResponse>
 }

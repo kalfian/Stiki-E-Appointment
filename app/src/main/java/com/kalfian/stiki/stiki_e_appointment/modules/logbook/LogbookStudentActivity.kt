@@ -45,6 +45,7 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
 
         b.nav.btnPlus.setOnClickListener {
             val intent = Intent(this, CreateLogbookActivity::class.java)
+            intent.putExtra(Constant.DETAIL_ACTIVITY_ID, activityId)
             startActivity(intent)
         }
     }
@@ -71,16 +72,7 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
 
     private fun getListLogbook() {
         logbookAdapter.clear()
-        logbookAdapter.addList(listOf(
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-        ))
+//        logbookAdapter.addList()
     }
 
     override fun onItemClickListener(data: Logbook) {

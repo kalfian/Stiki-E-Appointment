@@ -41,16 +41,7 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
 
     private fun getListLogbook() {
         logbookAdapter.clear()
-        logbookAdapter.addList(listOf(
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-            Logbook("1", "", ""),
-        ))
+//        logbookAdapter.addList()
     }
 
     override fun onItemClickListener(data: Logbook) {
