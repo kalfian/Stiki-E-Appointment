@@ -17,4 +17,6 @@ object Constant {
     const val DETAIL_ACTIVITY_ID = "activity_id"
 
     const val DETAIL_APPOINTMENT_ID = "appointment_id"
+
+    const val INTENT_REFRESH = "com.kalfian.stiki.stiki_e_appointment.REFRESH"
 }

@@ -1,11 +1,13 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.student.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListAppointmentAdapter
@@ -27,6 +29,11 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     private lateinit var appointmentAdapter: ListAppointmentAdapter
     private var page = 1
 
+    private val startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            getListAppointment()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,7 +56,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
 
         b.createAppointment.setOnClickListener {
             val intent = Intent(activity?.applicationContext, CreateAppointmentActivity::class.java)
-            startActivity(intent)
+            startCreateActivity.launch(intent)
         }
 
     }

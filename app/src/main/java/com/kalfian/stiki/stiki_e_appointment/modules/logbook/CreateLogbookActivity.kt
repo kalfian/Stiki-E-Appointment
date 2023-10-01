@@ -1,5 +1,7 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.logbook
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -95,6 +97,9 @@ class CreateLogbookActivity : AppCompatActivity() {
                     "Berhasil membuat logbook!",
                     "Logbook anda telah berhasil dibuat"
                 )
+
+                val resultIntent = Intent()
+                setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             }
 

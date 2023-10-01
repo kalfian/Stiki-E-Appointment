@@ -1,8 +1,13 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.logbook
 
+import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -31,6 +36,11 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     private var activityId = 0
     private var isLecture: Boolean = false
 
+    private val startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            fetchActivityAndLogbook()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityDetailLogbookStudentBinding.inflate(layoutInflater)
@@ -61,7 +71,7 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
         b.nav.btnPlus.setOnClickListener {
             val intent = Intent(this, CreateLogbookActivity::class.java)
             intent.putExtra(Constant.DETAIL_ACTIVITY_ID, activityId)
-            startActivity(intent)
+            startCreateActivity.launch(intent)
         }
     }
 

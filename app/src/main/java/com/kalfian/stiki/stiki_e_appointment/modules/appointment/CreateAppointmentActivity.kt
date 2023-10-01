@@ -1,5 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -265,6 +266,8 @@ class CreateAppointmentActivity : AppCompatActivity() {
                     "Berhasil membuat bimbingan!",
                     "Bimbingan anda telah berhasil dibuat"
                 )
+                val resultIntent = Intent()
+                setResult(android.app.Activity.RESULT_OK, resultIntent)
                 finish()
             }
 
