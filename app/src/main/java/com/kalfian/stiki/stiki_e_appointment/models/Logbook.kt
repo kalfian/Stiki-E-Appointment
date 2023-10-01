@@ -12,5 +12,6 @@ data class Logbook (
     @SerializedName("description") var description: String = "",
     @SerializedName("problem") var problem: String? = null,
     @SerializedName("logbook_proof") var logbookProof: String? = null,
+    @SerializedName("lecture_comment") var lectureComment: String? = null,
 
 ): Serializable

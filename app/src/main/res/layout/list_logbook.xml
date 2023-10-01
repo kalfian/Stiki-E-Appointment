@@ -29,6 +29,7 @@
                 android:src="@drawable/ic_baseline_access_time_24"
                 app:tint="@color/blue" />
             <TextView
+                android:id="@+id/logbook_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/blue"
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/kegiatan" />
             <TextView
+                android:id="@+id/logbook_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
@@ -67,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/masalah" />
             <TextView
+                android:id="@+id/logbook_problem"
                 android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bukti" />
             <TextView
+                android:id="@+id/logbook_proof"
                 android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/komentar_pembimbing" />
             <TextView
+                android:id="@+id/logbook_comment"
                 android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
