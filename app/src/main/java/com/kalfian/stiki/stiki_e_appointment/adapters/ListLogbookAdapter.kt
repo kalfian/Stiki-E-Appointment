@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListLogbookBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Logbook
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import kotlin.collections.ArrayList
 
-class ListLogbookAdapter(onClick: AdapterLogbookOnClickListener, isLecture: Boolean): RecyclerView.Adapter<ListLogbookAdapter.ViewHolder>() {
+class ListLogbookAdapter(onClick: AdapterLogbookOnClickListener): RecyclerView.Adapter<ListLogbookAdapter.ViewHolder>() {
     private var list = ArrayList<Logbook>()
     private var onClickAdapter = onClick
-    private var isLecture = isLecture
+    private var isLecture = false
 
     interface AdapterLogbookOnClickListener {
         fun onItemClickListener(data: Logbook)
@@ -24,6 +27,7 @@ class ListLogbookAdapter(onClick: AdapterLogbookOnClickListener, isLecture: Bool
         private var clickListener: AdapterLogbookOnClickListener = onClickListener
 
         fun bind(logbook: Logbook) {
+            isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(itemView.context, Constant.SHARED_IS_LECTURE, "false"))
 
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])

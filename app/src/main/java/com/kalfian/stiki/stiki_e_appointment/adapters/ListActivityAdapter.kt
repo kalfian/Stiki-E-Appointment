@@ -12,12 +12,15 @@ import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListActivityBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import kotlin.collections.ArrayList
 
-class ListActivityAdapter(onClick: AdapterListActivityOnClickListener, isLecture: Boolean): RecyclerView.Adapter<ListActivityAdapter.ViewHolder>() {
+class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): RecyclerView.Adapter<ListActivityAdapter.ViewHolder>() {
     private var list = ArrayList<Activity>()
     private var onClickAdapter = onClick
-    private var isLecture = isLecture
+    private var isLecture = false
 
     private lateinit var participantAdapter: ListParticipantAdapter
 
@@ -30,6 +33,8 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener, isLecture
         private var clickListener: AdapterListActivityOnClickListener = onClickListener
 
         fun bind(activity: Activity) {
+            isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(itemView.context, Constant.SHARED_IS_LECTURE, "false"))
+
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])
             }

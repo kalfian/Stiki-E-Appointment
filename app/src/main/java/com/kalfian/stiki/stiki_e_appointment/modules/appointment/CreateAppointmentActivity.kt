@@ -17,6 +17,7 @@ import com.kalfian.stiki.stiki_e_appointment.models.global.ErrorResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import retrofit2.Call
@@ -45,9 +46,13 @@ class CreateAppointmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         b = ActivityCreateAppointmentStudentBinding.inflate(layoutInflater)
         val v = b.root
+        requestActivityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, requestActivityId)
         setContentView(v)
-
         overlayLoader = OverlayLoader(this)
+
+        if (requestActivityId == 0) {
+            finish()
+        }
 
         b.nav.headerTitle.text = "Tambah Bimbingan"
         b.nav.backButton.setOnClickListener {

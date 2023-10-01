@@ -9,14 +9,17 @@ import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ListAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import com.kalfian.stiki.stiki_e_appointment.utils.AppointmentStatus
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import kotlin.collections.ArrayList
 
-class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean, isLecture: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
+class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
     private var list = ArrayList<Appointment>()
     private var onClickAdapter = onClick
     private var showLecture = showLecture
     private var showStatus = showStatus
-    private var isLecture = isLecture
+    private var isLecture = false
 
     interface AdapterAppointmentOnClickListener {
         fun onItemClickListener(data: Appointment)
@@ -27,6 +30,8 @@ class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLec
         private var clickListener: AdapterAppointmentOnClickListener = onClickListener
 
         fun bind(v: Appointment) {
+
+            isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(itemView.context, Constant.SHARED_IS_LECTURE, "false"))
 
             if (!showStatus) {
                 b.status.visibility = View.GONE

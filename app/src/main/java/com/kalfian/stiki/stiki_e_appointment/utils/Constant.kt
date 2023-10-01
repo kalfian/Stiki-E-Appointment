@@ -11,8 +11,10 @@ object Constant {
     const val SHARED_TOKEN = "shared_token"
     const val SHARED_ROLE = "shared_role"
     const val SHARED_NAME = "shared_name"
+    const val SHARED_IS_LECTURE = "shared_is_lecture"
     const val SHARED_IDENTITY = "shared_identity"
 
-    const val DETAIL_ACTIVITY_ID = "id"
-    const val DETAIL_APPOINTMENT_ID = "id"
+    const val DETAIL_ACTIVITY_ID = "activity_id"
+
+    const val DETAIL_APPOINTMENT_ID = "appointment_id"
 }

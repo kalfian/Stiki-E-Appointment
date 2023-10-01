@@ -1,22 +1,25 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.logbook
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListLogbookAdapter
-import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailLogbookStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailLogbookLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Logbook
-import com.kalfian.stiki.stiki_e_appointment.modules.student.CreateLogbookActivity
 
-class DetailLogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLogbookOnClickListener {
+class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLogbookOnClickListener {
 
-    private lateinit var b: ActivityDetailLogbookStudentBinding
+    private lateinit var b: ActivityDetailLogbookLectureBinding
     private lateinit var logbookAdapter: ListLogbookAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        b = ActivityDetailLogbookStudentBinding.inflate(layoutInflater)
+        b = ActivityDetailLogbookLectureBinding.inflate(layoutInflater)
         val v = b.root
         setContentView(v)
 
@@ -27,17 +30,12 @@ class DetailLogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.Ada
 
         setupListLogbook()
         getListLogbook()
-
-        b.nav.btnPlus.setOnClickListener {
-            val intent = Intent(this, CreateLogbookActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun setupListLogbook() {
         val lm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         b.recyclerListLogbook.layoutManager = lm
-        logbookAdapter = ListLogbookAdapter(this, false )
+        logbookAdapter = ListLogbookAdapter(this )
         b.recyclerListLogbook.adapter = logbookAdapter
     }
 
@@ -60,6 +58,17 @@ class DetailLogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.Ada
     }
 
     override fun onChangeStatusCliclListener(data: Logbook) {
+        val dialog = BottomSheetDialog(this, com.google.android.material.R.style.Theme_Design_Light_BottomSheetDialog)
+        val dialogView = LayoutInflater.from(applicationContext).inflate(
+            R.layout.status_bottom_sheet,
+            findViewById<LinearLayout>(R.id.status_bottom_sheet)
+        )
 
+        dialogView.findViewById<View>(R.id.bottom_close_btn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setContentView(dialogView)
+        dialog.show()
     }
 }

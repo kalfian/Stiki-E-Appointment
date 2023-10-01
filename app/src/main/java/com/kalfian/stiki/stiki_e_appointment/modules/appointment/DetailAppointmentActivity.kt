@@ -3,30 +3,27 @@ package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Telephony.Mms.Part
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.kalfian.stiki.stiki_e_appointment.adapters.ListParticipantAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
-import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import com.kalfian.stiki.stiki_e_appointment.models.User
 import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.modules.chat.ChatActivity
-import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.AppointmentStatus
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 
 class DetailAppointmentActivity : AppCompatActivity() {
 
@@ -44,7 +41,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
         setContentView(v)
         overlayLoader = OverlayLoader(this)
 
-        isLecture = intent.getBooleanExtra(Constant.IS_LECTURE, isLecture)
+        isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
         id = intent.getIntExtra(Constant.DETAIL_APPOINTMENT_ID, id)
         if (id == 0) {
             Alert.showError(

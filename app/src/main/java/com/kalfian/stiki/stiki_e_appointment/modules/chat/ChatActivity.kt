@@ -10,6 +10,8 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityCreateAppointme
 import com.kalfian.stiki.stiki_e_appointment.models.Chat
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 
 class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClickListener {
 
@@ -24,7 +26,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
         val v = b.root
         setContentView(v)
 
-        isLecture = intent.getBooleanExtra(Constant.IS_LECTURE, isLecture)
+        isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
 
         b.nav.headerTitle.text = "Bimbingan Bab 1"
         b.nav.backButton.setOnClickListener {
@@ -38,7 +40,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
     private fun setupListChat() {
         val lm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         b.recyclerChat.layoutManager = lm
-        chatAdapter = ListChatAdapter(this, isLecture)
+        chatAdapter = ListChatAdapter(this)
         b.recyclerChat.adapter = chatAdapter
     }
 

@@ -64,10 +64,12 @@ class LoginActivity : AppCompatActivity() {
                             role = Constant.ROLE_LECTURE
                         }
 
+                        val isLecture = role == Constant.ROLE_LECTURE
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_ROLE, data.user.role.name)
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_NAME, data.user.name)
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_IDENTITY, data.user.identity)
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_TOKEN, data.token)
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_IS_LECTURE, isLecture.toString())
 
                         var intent = Intent(this@LoginActivity, DashboardStudentActivity::class.java)
 

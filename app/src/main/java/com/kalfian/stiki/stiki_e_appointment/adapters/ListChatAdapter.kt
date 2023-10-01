@@ -11,12 +11,15 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ListChatBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Chat
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import kotlin.collections.ArrayList
 
-class ListChatAdapter(onClick: AdapterListChatOnClickListener, isLecture: Boolean): RecyclerView.Adapter<ListChatAdapter.ViewHolder>() {
+class ListChatAdapter(onClick: AdapterListChatOnClickListener): RecyclerView.Adapter<ListChatAdapter.ViewHolder>() {
     private var list = ArrayList<Chat>()
     private var onClickAdapter = onClick
-    private var isLecture = isLecture
+    private var isLecture = false
 
     interface AdapterListChatOnClickListener {
         fun onItemClickListener(data: Chat)
@@ -27,6 +30,8 @@ class ListChatAdapter(onClick: AdapterListChatOnClickListener, isLecture: Boolea
         private var clickListener: AdapterListChatOnClickListener = onClickListener
 
         fun bind(chat: Chat) {
+            isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(itemView.context, Constant.SHARED_IS_LECTURE, "false"))
+
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])
             }

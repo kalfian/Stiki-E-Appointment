@@ -16,12 +16,14 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailActivityB
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
 import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
-import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookLectureActivity
-import com.kalfian.stiki.stiki_e_appointment.modules.logbook.DetailLogbookStudentActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.logbook.LogbookLectureActivity
+import com.kalfian.stiki.stiki_e_appointment.modules.logbook.LogbookStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +44,7 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
         setContentView(v)
         overlayLoader = OverlayLoader(this)
 
-        isLecture = intent.getBooleanExtra(Constant.IS_LECTURE, isLecture)
+        isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
         id = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, id)
 
         if (id == 0) {
@@ -69,7 +71,8 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
         }
 
         b.btnGoLogbook.setOnClickListener{
-            val intent = Intent(this, DetailLogbookStudentActivity::class.java)
+            val intent = Intent(this, LogbookStudentActivity::class.java)
+            intent.putExtra(Constant.DETAIL_ACTIVITY_ID, id)
             startActivity(intent)
         }
     }
@@ -180,12 +183,12 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
 
     override fun onBtnLogbookClickListener(data: Participant) {
         if (isLecture) {
-            val intent = Intent(this, DetailLogbookLectureActivity::class.java)
+            val intent = Intent(this, LogbookLectureActivity::class.java)
             startActivity(intent)
             return
         }
 
-        val intent = Intent(this, DetailLogbookStudentActivity::class.java)
+        val intent = Intent(this, LogbookStudentActivity::class.java)
         startActivity(intent)
     }
 }

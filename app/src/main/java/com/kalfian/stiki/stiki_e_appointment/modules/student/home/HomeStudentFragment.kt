@@ -75,14 +75,14 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     private fun setupListActivity() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
         b.recyclerActivityStudent.layoutManager = lm
-        activityAdapter = ListActivityAdapter(this, false)
+        activityAdapter = ListActivityAdapter(this)
         b.recyclerActivityStudent.adapter = activityAdapter
     }
 
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this, false, false, false)
+        appointmentAdapter = ListAppointmentAdapter(this, false, false)
         b.recyclerAppointmentStudent.adapter = appointmentAdapter
     }
 

@@ -57,7 +57,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this, true, true, false)
+        appointmentAdapter = ListAppointmentAdapter(this, true, true)
         b.recyclerAppointmentStudent.adapter = appointmentAdapter
     }
 
