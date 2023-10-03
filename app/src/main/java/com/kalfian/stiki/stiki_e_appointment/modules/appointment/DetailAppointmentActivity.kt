@@ -65,7 +65,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
         b.btnChangeStatusLogbook.setOnClickListener {
             val dialog = BottomSheetDialog(this, R.style.Theme_Design_Light_BottomSheetDialog)
             val dialogView = LayoutInflater.from(applicationContext).inflate(
-                com.kalfian.stiki.stiki_e_appointment.R.layout.status_bottom_sheet,
+                com.kalfian.stiki.stiki_e_appointment.R.layout.custom_bottom_sheet,
                 findViewById<LinearLayout>(com.kalfian.stiki.stiki_e_appointment.R.id.status_bottom_sheet)
             )
 

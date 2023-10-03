@@ -51,7 +51,7 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     override fun onChangeStatusCliclListener(data: Logbook) {
         val dialog = BottomSheetDialog(this, com.google.android.material.R.style.Theme_Design_Light_BottomSheetDialog)
         val dialogView = LayoutInflater.from(applicationContext).inflate(
-            R.layout.status_bottom_sheet,
+            R.layout.custom_bottom_sheet,
             findViewById<LinearLayout>(R.id.status_bottom_sheet)
         )
 

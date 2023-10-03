@@ -48,34 +48,12 @@
         android:layout_height="wrap_content">
 
 
-        <RadioGroup
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bottom_sheet_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_marginBottom="@dimen/dimen_16"
+            android:layout_height="wrap_content"/>
 
-            <RadioButton
-                android:id="@+id/radioButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Menunggu Persetujuan" />
-
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Disetujui" />
-
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Selesai" />
-
-            <RadioButton
-                android:id="@+id/radioButton4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ditolak" />
-        </RadioGroup>
         <Button
             android:id="@+id/bottom_btn"
             android:layout_width="match_parent"
