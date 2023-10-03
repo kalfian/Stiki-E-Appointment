@@ -28,6 +28,7 @@ import com.kalfian.stiki.stiki_e_appointment.models.Logbook
 import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
+import com.kalfian.stiki.stiki_e_appointment.utils.BottomSheetRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
@@ -176,9 +177,16 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     }
 
     override fun onItemClickListener(data: Logbook) {
-        bottomSheet(this, "Detail Logbook", "Close") {
-            Log.d("TAG123414", "Okey")
-        }
+        val request = BottomSheetRequest(
+            ctx = this,
+            title = "Detail Logbook",
+            okTitle = "Close",
+            disableOkButton = true,
+            btnOkOnClick = {
+
+            }
+        )
+        bottomSheet(request)
     }
 
     override fun onChangeStatusCliclListener(data: Logbook) {
