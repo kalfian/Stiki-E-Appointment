@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_IDENTITY, data.user.identity)
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_TOKEN, data.token)
                         SharedPreferenceUtil.store(applicationContext, Constant.SHARED_IS_LECTURE, isLecture.toString())
+                        SharedPreferenceUtil.store(applicationContext, Constant.SHARED_ID, data.user.id.toString())
 
                         var intent = Intent(this@LoginActivity, DashboardStudentActivity::class.java)
 

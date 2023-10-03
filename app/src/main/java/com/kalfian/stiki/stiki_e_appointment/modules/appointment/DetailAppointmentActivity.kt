@@ -57,7 +57,8 @@ class DetailAppointmentActivity : AppCompatActivity() {
 
         b.btnChat.setOnClickListener {
             val intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra(Constant.IS_LECTURE, isLecture)
+            intent.putExtra(Constant.INTENT_CHAT_TITLE, b.nav.headerTitle.text)
+            intent.putExtra(Constant.INTENT_APPOINTMENT_ID, id)
             startActivity(intent)
         }
 

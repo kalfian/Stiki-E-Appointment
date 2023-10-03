@@ -12,37 +12,45 @@
         android:id="@+id/layout_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginBottom="@dimen/dimen_16"
         android:orientation="vertical">
         <LinearLayout
             android:padding="12dp"
             android:layout_width="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/round_left"
+            android:textAlignment="viewEnd"
+            android:gravity="end"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/participant_right"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:textAlignment="viewEnd"
                 android:fontFamily="@font/ubuntu_bold"
                 android:layout_height="wrap_content"
-                android:text="Mahasiswa"/>
+                android:layout_marginBottom="8dp"
+                android:text="@string/none"/>
             <TextView
+                android:id="@+id/message_right"
                 android:layout_width="wrap_content"
-                android:textAlignment="viewEnd"
+                android:textAlignment="textEnd"
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_height="wrap_content"
-                android:text="tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester"/>
+                android:text="@string/none"/>
         </LinearLayout>
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/date_right"
+            android:layout_width="wrap_content"
             android:textAlignment="viewEnd"
             android:fontFamily="@font/ubuntu_regular"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:text="3 Mar 2022 01:00:00"/>
+            android:text="@string/none"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_gravity="left"
+        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_gravity="start"
         android:id="@+id/layout_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,25 +62,28 @@
             android:background="@drawable/round_right"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:id="@+id/participant_left"
                 android:textAlignment="viewStart"
                 android:fontFamily="@font/ubuntu_bold"
                 android:layout_height="wrap_content"
-                android:text="Dosen 1"/>
+                android:layout_marginBottom="8dp"
+                android:text="@string/none"/>
             <TextView
+                android:id="@+id/message_left"
                 android:layout_width="wrap_content"
                 android:textAlignment="viewStart"
                 android:fontFamily="@font/ubuntu_regular"
                 android:layout_height="wrap_content"
-                android:text="tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester tester"/>
+                android:text="@string/none"/>
         </LinearLayout>
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/date_left"
+            android:layout_width="wrap_content"
             android:textAlignment="viewStart"
             android:fontFamily="@font/ubuntu_regular"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:text="3 Mar 2022 01:00:00"/>
+            android:text="@string/none"/>
     </LinearLayout>
 </LinearLayout>

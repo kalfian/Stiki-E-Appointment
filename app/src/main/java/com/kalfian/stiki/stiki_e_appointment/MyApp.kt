@@ -1,6 +1,7 @@
 package com.kalfian.stiki.stiki_e_appointment
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import com.onesignal.OneSignal
 
 const val ONESIGNAL_APP_ID = "b04375d0-69f3-405d-8225-884772d8bdf1"
@@ -15,5 +16,9 @@ class MyApp : Application() {
         // OneSignal Initialization
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
+
+        // Init Firebase
+         FirebaseApp.initializeApp(this)
+
     }
 }

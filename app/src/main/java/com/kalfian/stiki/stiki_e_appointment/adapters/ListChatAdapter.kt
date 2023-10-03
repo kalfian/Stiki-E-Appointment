@@ -32,6 +32,15 @@ class ListChatAdapter(onClick: AdapterListChatOnClickListener): RecyclerView.Ada
         fun bind(chat: Chat) {
             isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(itemView.context, Constant.SHARED_IS_LECTURE, "false"))
 
+            b.participantLeft.text = chat.participantName
+            b.participantRight.text = chat.participantName
+
+            b.messageLeft.text = chat.message
+            b.messageRight.text = chat.message
+
+            b.dateLeft.text = Helper.timestampToDate(chat.timeStamp)
+            b.dateRight.text = Helper.timestampToDate(chat.timeStamp)
+
             itemView.setOnClickListener {
                 clickListener.onItemClickListener(list[adapterPosition])
             }
@@ -40,21 +49,17 @@ class ListChatAdapter(onClick: AdapterListChatOnClickListener): RecyclerView.Ada
                 if (chat.isLecture) {
                     b.layoutLeft.visibility = View.GONE
                     b.layoutRight.visibility = View.VISIBLE
-                    b.participantRight.text = chat.title
                 } else {
                     b.layoutLeft.visibility = View.VISIBLE
                     b.layoutRight.visibility = View.GONE
-                    b.participantLeft.text = chat.title
                 }
             } else {
                 if (chat.isLecture) {
                     b.layoutLeft.visibility = View.VISIBLE
                     b.layoutRight.visibility = View.GONE
-                    b.participantLeft.text = chat.title
                 } else {
                     b.layoutLeft.visibility = View.GONE
                     b.layoutRight.visibility = View.VISIBLE
-                    b.participantRight.text = chat.title
                 }
             }
 

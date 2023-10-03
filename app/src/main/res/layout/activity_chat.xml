@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/light_gray"
     tools:context=".modules.activity.DetailActivityActivity">
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_home_student"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/nested_scroll_view">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -52,33 +47,32 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <include
-                        layout="@layout/head_with_back"
                         android:id="@+id/nav"
+                        layout="@layout/head_with_back"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="64dp"
                         android:id="@+id/recycler_chat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="64dp" />
 
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:baselineAligned="true"
         android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -86,9 +80,11 @@
         <EditText
             android:id="@+id/textInput"
             android:layout_width="0dip"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/blue">
+            android:backgroundTint="@color/blue"
+            android:inputType="textMultiLine"
+            android:maxLines="10">
 
         </EditText>
 

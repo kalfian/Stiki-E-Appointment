@@ -13,10 +13,12 @@ object Constant {
     const val SHARED_NAME = "shared_name"
     const val SHARED_IS_LECTURE = "shared_is_lecture"
     const val SHARED_IDENTITY = "shared_identity"
+    const val SHARED_ID = "shared_id"
 
     const val DETAIL_ACTIVITY_ID = "activity_id"
 
     const val DETAIL_APPOINTMENT_ID = "appointment_id"
 
-    const val INTENT_REFRESH = "com.kalfian.stiki.stiki_e_appointment.REFRESH"
+    const val INTENT_CHAT_TITLE = "com.kalfian.stiki.stiki_e_appointment.CHAT_TITLE"
+    const val INTENT_APPOINTMENT_ID = "com.kalfian.stiki.stiki_e_appointment.APPOINTMENT_ID"
 }

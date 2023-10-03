@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.FirebaseApp
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivitySplashscreenBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
