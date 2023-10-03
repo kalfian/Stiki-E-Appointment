@@ -10,8 +10,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_detail_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_go_logbook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -52,23 +52,22 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <include
-                        layout="@layout/head_with_back"
                         android:id="@+id/nav"
+                        layout="@layout/head_with_back"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
-                        android:paddingTop="32dp"
-                        android:paddingBottom="32dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:layout_margin="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
                         android:background="@drawable/round_white"
-                        android:orientation="vertical"
                         android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="32dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -77,112 +76,98 @@
                         <ImageView
                             android:id="@+id/activity_banner"
                             android:layout_width="wrap_content"
-                            android:layout_gravity="center"
                             android:layout_height="150dp"
+                            android:layout_gravity="center"
                             android:src="@drawable/noimage" />
 
                         <TextView
                             android:id="@+id/activity_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="4dp"
-                            android:layout_width="wrap_content"
                             android:fontFamily="@font/ubuntu_medium"
+                            android:text="@string/none"
                             android:textColor="@color/blue"
-                            android:textSize="16sp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/none" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/activity_location"
-                            android:layout_marginBottom="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray"
+                            android:layout_marginBottom="4dp"
                             android:fontFamily="@font/ubuntu_regular"
-                            android:text="@string/none" />
+                            android:text="@string/none"
+                            android:textColor="@color/gray" />
+
                         <TextView
                             android:id="@+id/activity_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/blue"
                             android:fontFamily="@font/ubuntu_regular"
-                            android:text="@string/none" />
+                            android:text="@string/none"
+                            android:textColor="@color/blue" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:paddingTop="32dp"
-                        android:paddingBottom="32dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
                         android:orientation="vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="32dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+
                         <TextView
                             android:id="@+id/activity_description"
-                            android:layout_marginBottom="4dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/gray"
+                            android:layout_marginBottom="4dp"
                             android:fontFamily="@font/ubuntu_regular"
-                            android:text="@string/none" />
+                            android:text="@string/none"
+                            android:textColor="@color/gray" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:paddingTop="32dp"
-                        android:paddingBottom="32dp"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:layout_margin="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
                         android:background="@drawable/round_white"
                         android:orientation="vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="32dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/blue"
-                                android:fontFamily="@font/ubuntu_bold"
-                                android:text="@string/partisipan" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:text="@string/partisipan"
+                            android:textColor="@color/blue" />
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_list_participant"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_list_participant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp" />
 
 
                     </LinearLayout>
-
-                    <Button
-                        android:layout_marginBottom="@dimen/dimen_16"
-                        android:id="@+id/btn_go_logbook"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/btn_round_yellow"
-                        app:backgroundTint="@null"
-                        android:padding="6dp"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:text="@string/kelola_logbook"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_blue" />
 
                 </LinearLayout>
 
@@ -190,4 +175,21 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/btn_go_logbook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_round_yellow"
+        android:fontFamily="@font/ubuntu_bold"
+        android:padding="6dp"
+        android:text="@string/kelola_logbook"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/dimen_16"
+        android:textColor="@color/dark_blue"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

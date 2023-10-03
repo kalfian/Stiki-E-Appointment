@@ -5,13 +5,23 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.google.android.material.R
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListLogbookAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailLogbookStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Logbook
@@ -23,6 +33,7 @@ import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
+import com.kalfian.stiki.stiki_e_appointment.utils.bottomSheet
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
@@ -165,7 +176,9 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     }
 
     override fun onItemClickListener(data: Logbook) {
-
+        bottomSheet(this, "Detail Logbook", "Close") {
+            Log.d("TAG123414", "Okey")
+        }
     }
 
     override fun onChangeStatusCliclListener(data: Logbook) {
