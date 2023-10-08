@@ -18,8 +18,11 @@ import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.activity.DetailActivityActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +37,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     private lateinit var b: FragmentHomeStudentBinding
     private lateinit var activityAdapter: ListActivityAdapter
     private lateinit var appointmentAdapter: ListAppointmentAdapter
+    private lateinit var overlayLoader: OverlayLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,22 +49,37 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        attachIdentity()
+        overlayLoader = OverlayLoader(requireContext())
 
         setupListActivity()
         setupListAppointment()
 
-//        Async get data
-        getListActivity()
-        getListAppointment()
+        loadPage()
 
         b.swipeRefreshHomeStudent.setOnRefreshListener {
-            getListActivity()
-            getListAppointment()
-
+            loadPage()
 
             b.swipeRefreshHomeStudent.isRefreshing = false
+        }
+    }
+
+    private fun loadPage() {
+        overlayLoader.show()
+        runBlocking {
+            val attachIdentity = async{ attachIdentity() }
+            val getListActivity = async{ getListActivity() }
+            val getListAppointment = async{ getListAppointment() }
+
+            try {
+                attachIdentity.await()
+                getListActivity.await()
+                getListAppointment.await()
+
+                overlayLoader.hide()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                overlayLoader.hide()
+            }
         }
     }
 
