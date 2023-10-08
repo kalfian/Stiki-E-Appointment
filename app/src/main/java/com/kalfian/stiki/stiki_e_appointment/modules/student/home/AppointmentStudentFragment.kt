@@ -71,7 +71,7 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     private fun getListAppointment() {
         appointmentAdapter.clear()
 
-        RetrofitClient.callAuth(requireContext()).getStudentAppointments(true, null, "created_at", "desc", 10,page)
+        RetrofitClient.callAuth(requireContext()).getStudentAppointments(page = page)
             .enqueue(object : Callback<GetAppointmentsResponse>  {
                 override fun onResponse(
                     call: Call<GetAppointmentsResponse>,

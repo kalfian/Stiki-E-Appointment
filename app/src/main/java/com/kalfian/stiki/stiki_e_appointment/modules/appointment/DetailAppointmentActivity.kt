@@ -100,7 +100,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
     }
 
     private fun setupPageStudent() {
-        RetrofitClient.callAuth(applicationContext).getStudentAppointmentDetail(id, false, false).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
+        RetrofitClient.callAuth(applicationContext).getStudentAppointmentDetail(id).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
             override fun onResponse(call: retrofit2.Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
                 if (response.isSuccessful) {
                     val data = response.body()?.data
