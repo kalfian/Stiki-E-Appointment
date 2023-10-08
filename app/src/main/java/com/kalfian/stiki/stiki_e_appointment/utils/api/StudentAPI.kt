@@ -47,7 +47,7 @@ interface StudentAPI {
         @Query("load_lectures") loadLectures: Boolean = false,
         @Query("status") status: Int? = null,
         @Query("order_by") orderBy: String = "start_date",
-        @Query("order") order: String = "desc",
+        @Query("order_type") orderType: String = "desc",
         @Query("limit") limit: Int = 10,
         @Query("page") page: Int = 1,
     ): Call<GetAppointmentsResponse>
