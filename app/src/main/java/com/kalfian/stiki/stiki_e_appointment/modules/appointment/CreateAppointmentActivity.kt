@@ -16,7 +16,7 @@ import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivity
 import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.ErrorResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
-import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.CreateAppointmentRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".modules.appointment.CreateAppointmentActivity">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_home_student"
+        android:id="@+id/swipe_refresh_create_logbook"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

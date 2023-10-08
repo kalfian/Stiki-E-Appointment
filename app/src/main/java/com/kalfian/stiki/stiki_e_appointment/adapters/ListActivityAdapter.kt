@@ -22,13 +22,11 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
     private var onClickAdapter = onClick
     private var isLecture = false
 
-    private lateinit var participantAdapter: ListParticipantAdapter
-
     interface AdapterListActivityOnClickListener {
         fun onItemClickListener(data: Activity)
     }
 
-    inner class ViewHolder(itemView: View, onClickListener: AdapterListActivityOnClickListener): RecyclerView.ViewHolder(itemView), ListParticipantAdapter.AdapterParticipantOnClickListener {
+    inner class ViewHolder(itemView: View, onClickListener: AdapterListActivityOnClickListener): RecyclerView.ViewHolder(itemView) {
         private val b = ListActivityBinding.bind(itemView)
         private var clickListener: AdapterListActivityOnClickListener = onClickListener
 
@@ -57,15 +55,6 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
                 .into(b.activityBanner)
 
         }
-
-        override fun onItemClickListener(data: Participant) {
-
-        }
-
-        override fun onBtnLogbookClickListener(data: Participant) {
-
-        }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

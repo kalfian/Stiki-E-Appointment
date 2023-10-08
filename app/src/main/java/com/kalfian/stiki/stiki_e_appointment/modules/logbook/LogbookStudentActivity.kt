@@ -1,29 +1,19 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.logbook
 
 import android.app.Activity
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.kalfian.stiki.stiki_e_appointment.adapters.ListBottomSheetButtonAdapter
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListLogbookAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailLogbookStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.models.BottomSheetButton
 import com.kalfian.stiki.stiki_e_appointment.models.Logbook
 import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
@@ -38,11 +28,12 @@ import com.kalfian.stiki.stiki_e_appointment.utils.bottomSheet
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
-class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLogbookOnClickListener {
+class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLogbookOnClickListener, ListBottomSheetButtonAdapter.AdapterBottomSheetButton {
 
     private lateinit var b: ActivityDetailLogbookStudentBinding
     private lateinit var logbookAdapter: ListLogbookAdapter
     private lateinit var overlayLoader: OverlayLoader
+    private lateinit var bottomSheet: BottomSheetDialog
 
     private var activityName = ""
     private var activityId = 0
@@ -177,19 +168,36 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     }
 
     override fun onItemClickListener(data: Logbook) {
+        val listButtonAdapter = ListBottomSheetButtonAdapter(this)
+        listButtonAdapter.add(BottomSheetButton(1, "Edit Logbook", data.id.toString()))
+
         val request = BottomSheetRequest(
             ctx = this,
-            title = "Detail Logbook",
+            title = "Kelola Logbook",
             okTitle = "Close",
             disableOkButton = true,
             btnOkOnClick = {
 
-            }
+            },
+            recyclerViewAdapter = listButtonAdapter
         )
-        bottomSheet(request)
+
+        bottomSheet = bottomSheet(request)
     }
 
     override fun onChangeStatusCliclListener(data: Logbook) {
 
+    }
+
+    override fun onItemClickListener(data: BottomSheetButton) {
+        when (data.id) {
+            1 -> {
+                val intent = Intent(this, CreateLogbookActivity::class.java)
+                intent.putExtra(Constant.DETAIL_ACTIVITY_ID, activityId)
+                intent.putExtra(Constant.DETAIL_LOGBOOK_ID, data.payload.toInt())
+                startCreateActivity.launch(intent)
+            }
+        }
+        bottomSheet.dismiss()
     }
 }

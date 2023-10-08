@@ -9,11 +9,16 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.content.res.ResourcesCompat
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityCreateLogbookBinding
+import com.kalfian.stiki.stiki_e_appointment.models.Logbook
 import com.kalfian.stiki.stiki_e_appointment.models.global.ErrorResponse
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
-import com.kalfian.stiki.stiki_e_appointment.requests.CreateLogbookRequest
+import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbookDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
+import com.kalfian.stiki.stiki_e_appointment.models.requests.CreateLogbookRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateLogbookStudentRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
@@ -27,7 +32,11 @@ class CreateLogbookActivity : AppCompatActivity() {
     private lateinit var b: ActivityCreateLogbookBinding
     private lateinit var overlayLoader: OverlayLoader
 
-    private var requestActivityId: Int = 0
+    private var logbookId = 0
+    private var isUpdate = false
+    private var isLecture = false
+
+    private var activityId: Int = 0
     private var requestUserId: Int = 0
     private var requestDate: String = ""
     private var requestDescription: String = ""
@@ -39,16 +48,25 @@ class CreateLogbookActivity : AppCompatActivity() {
 
         b = ActivityCreateLogbookBinding.inflate(layoutInflater)
         val v = b.root
-        requestActivityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, 0)
+        isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
+
+        activityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, 0)
+        logbookId = intent.getIntExtra(Constant.DETAIL_LOGBOOK_ID, 0)
+        if (logbookId != 0) isUpdate = true
+
         overlayLoader = OverlayLoader(this)
         setContentView(v)
 
-        if (requestActivityId == 0) {
+        if (activityId == 0) {
             Alert.showError(this, "Gagal membuka halaman!", "Periksa koneksi internet anda dan coba lagi")
             finish()
         }
 
-        setupLayout()
+        setupLayout(isUpdate)
+
+        b.swipeRefreshCreateLogbook.setOnRefreshListener {
+            b.swipeRefreshCreateLogbook.isRefreshing = false
+        }
 
         b.btnCreateLogbook.setOnClickListener {
             submitForm()
@@ -61,6 +79,15 @@ class CreateLogbookActivity : AppCompatActivity() {
         if (!b.logbookProblem.text.isNullOrEmpty()) requestProblem = b.logbookProblem.text.toString()
         if (!b.logbookProof.text.isNullOrEmpty()) requestProof = b.logbookProof.text.toString()
 
+        if(isUpdate) {
+            updateLogbook()
+        } else {
+            createLogbookStudent()
+        }
+
+    }
+
+    private fun createLogbookStudent() {
         val request = CreateLogbookRequest(
             requestDate,
             requestDescription,
@@ -68,7 +95,7 @@ class CreateLogbookActivity : AppCompatActivity() {
             requestProof
         )
 
-        RetrofitClient.callAuth(applicationContext).postStudentLogbook(requestActivityId, request).enqueue(object :
+        RetrofitClient.callAuth(applicationContext).postStudentLogbook(activityId, request).enqueue(object :
             Callback<MessageResponse> {
             override fun onResponse(
                 call: Call<MessageResponse>,
@@ -80,7 +107,7 @@ class CreateLogbookActivity : AppCompatActivity() {
 
                     Alert.showError(
                         this@CreateLogbookActivity,
-                        "Gagal membuat bimbingan!",
+                        "Gagal memuat logbook!",
                         responseError.message.toString())
 
                     responseError.errors?.forEach { (key, value) ->
@@ -112,13 +139,18 @@ class CreateLogbookActivity : AppCompatActivity() {
             }
 
         })
-
     }
 
-    private fun setupLayout() {
+    private fun setupLayout(isUpdate: Boolean) {
         b.nav.headerTitle.text = "Tambah Logbook"
         b.nav.backButton.setOnClickListener {
             finish()
+        }
+
+        if (isUpdate) {
+            b.btnCreateLogbook.text = "Update Logbook"
+            b.nav.headerTitle.text = "Update Logbook"
+            getLogbook()
         }
 
         b.logbookDate.setupDateTimePicker(this) { selected, selectedDB ->
@@ -152,5 +184,124 @@ class CreateLogbookActivity : AppCompatActivity() {
             }
             false
         }
+    }
+
+    private fun getLogbook() {
+        if(isLecture) {
+            getLogbookLecture()
+        } else {
+            getLogbookStudent()
+        }
+    }
+
+    private fun getLogbookStudent() {
+        overlayLoader.show()
+        RetrofitClient.callAuth(applicationContext).getStudentLogbookById(activityId, logbookId).enqueue(object :
+            Callback<GetLogbookDetailResponse> {
+            override fun onResponse(
+                call: Call<GetLogbookDetailResponse>,
+                response: Response<GetLogbookDetailResponse>
+            ) {
+                if (!response.isSuccessful) {
+                    val responseError = RetrofitClient.mapJsonToDataClass<ErrorResponse>(response.errorBody())
+                        ?: return
+
+                    Alert.showError(
+                        this@CreateLogbookActivity,
+                        "Gagal mengambil logbook!",
+                        responseError.message.toString())
+                    overlayLoader.hide()
+                    finish()
+                    return
+                }
+
+                val data = response.body()?.data ?: return
+                setLogbook(data)
+                overlayLoader.hide()
+
+            }
+
+            override fun onFailure(call: Call<GetLogbookDetailResponse>, t: Throwable) {
+                Alert.showError(
+                    this@CreateLogbookActivity,
+                    "Gagal mengambil data logbook!",
+                    "Periksa koneksi internet anda dan coba lagi"
+                )
+                overlayLoader.hide()
+                finish()
+            }
+
+        })
+    }
+
+    private fun setLogbook(data: Logbook) {
+        requestDate = data.dateDB
+        b.logbookDate.setText(data.date)
+        b.logbookDescription.setText(data.description)
+        b.logbookProblem.setText(data.problem)
+        b.logbookProof.setText(data.logbookProof)
+    }
+    private fun getLogbookLecture() {
+
+    }
+
+    private fun updateLogbook() {
+        if(isLecture) {
+            updateLogbookLecture()
+        } else {
+            updateLogbookStudent()
+        }
+    }
+
+    private fun updateLogbookLecture() {
+
+    }
+
+    private  fun updateLogbookStudent() {
+        val request = UpdateLogbookStudentRequest(
+            requestDate,
+            requestDescription,
+            requestProblem,
+            requestProof
+        )
+
+        RetrofitClient.callAuth(applicationContext).updateStudentLogbook(activityId, logbookId, request).enqueue(object :
+            Callback<MessageResponse> {
+            override fun onResponse(
+                call: Call<MessageResponse>,
+                response: Response<MessageResponse>
+            ) {
+                if (!response.isSuccessful) {
+                    val responseError = RetrofitClient.mapJsonToDataClass<ErrorResponse>(response.errorBody())
+                        ?: return
+
+                    Alert.showError(
+                        this@CreateLogbookActivity,
+                        "Gagal memperbarui logbook!",
+                        responseError.message.toString())
+
+                    return
+                }
+
+                Alert.showSuccess(
+                    this@CreateLogbookActivity,
+                    "Berhasil memperbarui logbook!",
+                    "Logbook anda telah berhasil diperbarui"
+                )
+
+                val resultIntent = Intent()
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            }
+
+            override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                Alert.showError(
+                    this@CreateLogbookActivity,
+                    "Gagal memperbarui logbook!",
+                    "Periksa koneksi internet anda dan coba lagi"
+                )
+            }
+
+        })
     }
 }

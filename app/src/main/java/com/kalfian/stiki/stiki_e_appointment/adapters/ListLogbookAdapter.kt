@@ -37,6 +37,7 @@ class ListLogbookAdapter(onClick: AdapterLogbookOnClickListener): RecyclerView.A
             b.logbookDescription.text = logbook.description
             b.logbookProblem.text = logbook.problem ?: "-"
             b.logbookComment.text = logbook.lectureComment ?: "-"
+            b.logbookProof.text = logbook.logbookProof ?: "-"
 
             if (isLecture) {
                 b.btnChangeStatusLogbook.visibility = View.VISIBLE

@@ -1,6 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.utils
 
-import com.kalfian.stiki.stiki_e_appointment.requests.LoginRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.LoginRequest
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.models.authResponse.LoginResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.api.StudentAPI

@@ -7,12 +7,14 @@ import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppoi
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbookDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
-import com.kalfian.stiki.stiki_e_appointment.requests.CreateAppointmentRequest
-import com.kalfian.stiki.stiki_e_appointment.requests.CreateLogbookRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.CreateAppointmentRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.CreateLogbookRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateLogbookStudentRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -68,4 +70,17 @@ interface StudentAPI {
     fun getStudentLogbookByActivity(
         @Path("id") activityId: Int,
     ): Call<GetLogbooksResponse>
+
+    @PUT("v1/student/activity/{id}/logbook/{logbook_id}")
+    fun updateStudentLogbook(
+        @Path("id") activityId: Int,
+        @Path("logbook_id") logbookId: Int,
+        @Body request: UpdateLogbookStudentRequest
+    ): Call<MessageResponse>
+
+    @GET("v1/student/activity/{id}/logbook/{logbook_id}")
+    fun getStudentLogbookById(
+        @Path("id") activityId: Int,
+        @Path("logbook_id") logbookId: Int
+    ): Call<GetLogbookDetailResponse>
 }

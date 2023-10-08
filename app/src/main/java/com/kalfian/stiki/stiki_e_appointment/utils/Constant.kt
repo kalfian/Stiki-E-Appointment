@@ -18,6 +18,7 @@ object Constant {
     const val DETAIL_ACTIVITY_ID = "activity_id"
 
     const val DETAIL_APPOINTMENT_ID = "appointment_id"
+    const val DETAIL_LOGBOOK_ID = "logbook_id"
 
     const val INTENT_CHAT_TITLE = "com.kalfian.stiki.stiki_e_appointment.CHAT_TITLE"
     const val INTENT_APPOINTMENT_ID = "com.kalfian.stiki.stiki_e_appointment.APPOINTMENT_ID"

@@ -14,11 +14,9 @@ import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import kotlin.collections.ArrayList
 
-class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, showLecture: Boolean, showStatus: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
+class ListAppointmentAdapter(onClick: AdapterAppointmentOnClickListener, var showLecture: Boolean, var showStatus: Boolean): RecyclerView.Adapter<ListAppointmentAdapter.ViewHolder>() {
     private var list = ArrayList<Appointment>()
     private var onClickAdapter = onClick
-    private var showLecture = showLecture
-    private var showStatus = showStatus
     private var isLecture = false
 
     interface AdapterAppointmentOnClickListener {
