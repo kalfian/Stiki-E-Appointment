@@ -1,24 +1,26 @@
 package com.kalfian.stiki.stiki_e_appointment
 
 import android.app.Application
+import android.util.Log
 import com.google.firebase.FirebaseApp
-import com.onesignal.OneSignal
-
-const val ONESIGNAL_APP_ID = "b04375d0-69f3-405d-8225-884772d8bdf1"
+import com.google.firebase.messaging.FirebaseMessaging
+import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Logging set to help debug issues, remove before releasing your app.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE)
-
-        // OneSignal Initialization
-        OneSignal.initWithContext(this)
-        OneSignal.setAppId(ONESIGNAL_APP_ID)
-
         // Init Firebase
-         FirebaseApp.initializeApp(this)
+        FirebaseApp.initializeApp(this)
 
+        // Get if it logged in
+        val token = SharedPreferenceUtil.retrieve(this, Constant.SHARED_TOKEN, "")
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val newToken = task.result
+                Log.d("TESATESR1234", "New Token: $newToken")
+            }
+        }
     }
 }

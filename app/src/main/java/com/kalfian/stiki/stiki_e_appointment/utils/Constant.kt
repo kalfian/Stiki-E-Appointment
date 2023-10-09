@@ -28,4 +28,8 @@ object Constant {
     const val STATUS_APPOINTMENT_REJECTED = 202
     const val STATUS_APPOINTMENT_CANCELED = 203
     const val STATUS_APPOINTMENT_DONE = 204
+
+
+    const val notification_channel_id = "com.kalfian.stiki.stiki_e_appointment.notification_channel_id"
+    const val notification_channel_name = "com.kalfian.stiki.stiki_e_appointment.notification_channel_name"
 }
