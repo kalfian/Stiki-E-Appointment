@@ -6,18 +6,21 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
         android:name=".MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/stiki_splash"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/stiki_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.StikiEAppointment"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".modules.AboutActivity"
+            android:exported="false" />
         <activity
             android:name=".modules.chat.ChatActivity"
             android:exported="false">

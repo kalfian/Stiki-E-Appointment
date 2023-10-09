@@ -101,7 +101,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     private fun setupListAppointment() {
         val lm = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         b.recyclerAppointmentStudent.layoutManager = lm
-        appointmentAdapter = ListAppointmentAdapter(this, false, false)
+        appointmentAdapter = ListAppointmentAdapter(this, showLecture = true, showStatus = false)
         b.recyclerAppointmentStudent.adapter = appointmentAdapter
     }
 
@@ -156,7 +156,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
     private fun getListAppointment() {
         appointmentAdapter.clear()
-        RetrofitClient.callAuth(requireContext()).getStudentAppointments(status = Constant.STATUS_APPOINTMENT_ACCEPTED, limit = 5, filterNow = 1).enqueue(object : Callback<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse> {
+        RetrofitClient.callAuth(requireContext()).getStudentAppointments(loadLectures = true, status = Constant.STATUS_APPOINTMENT_ACCEPTED, limit = 5, filterNow = 1).enqueue(object : Callback<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse> {
             override fun onResponse(
                 call: Call<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>,
                 response: Response<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>
@@ -205,6 +205,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
 
     override fun onItemClickListener(data: Appointment) {
         val intent = Intent(activity?.applicationContext, DetailAppointmentActivity::class.java)
+        intent.putExtra(Constant.DETAIL_APPOINTMENT_ID, data.id)
         startActivity(intent)
     }
 

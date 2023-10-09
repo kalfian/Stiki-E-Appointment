@@ -24,4 +24,7 @@
     <string name="tanggal">Tanggal</string>
     <string name="tambah_logbook">Tambah Logbook</string>
     <string name="jadwal_bimbingan_hari_ini">Jadwal Bimbingan Hari ini</string>
+    <string name="websites_https_stiki_ac_id">Websites: https://stiki.ac.id</string>
+    <string name="version_1_0">Version 1.0</string>
+    <string name="description_about">Applikasi pengajuan bimbingan skripsi online untuk mahasiswa dan dosen pembimbing</string>
 </resources>
