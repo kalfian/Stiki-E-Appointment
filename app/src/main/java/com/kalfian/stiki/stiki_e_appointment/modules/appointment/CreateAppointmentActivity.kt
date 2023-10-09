@@ -47,13 +47,8 @@ class CreateAppointmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         b = ActivityCreateAppointmentStudentBinding.inflate(layoutInflater)
         val v = b.root
-        requestActivityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, requestActivityId)
         setContentView(v)
         overlayLoader = OverlayLoader(this)
-
-        if (requestActivityId == 0) {
-            finish()
-        }
 
         b.nav.headerTitle.text = "Tambah Bimbingan"
         b.nav.backButton.setOnClickListener {

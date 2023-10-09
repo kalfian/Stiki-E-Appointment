@@ -50,6 +50,9 @@ interface StudentAPI {
         @Query("order_type") orderType: String = "desc",
         @Query("limit") limit: Int = 10,
         @Query("page") page: Int = 1,
+        @Query("start_date") startDate: String? = null,
+        @Query("end_date") endDate: String? = null,
+        @Query("filter_now") filterNow: Int? = null
     ): Call<GetAppointmentsResponse>
 
     @GET("v1/student/appointment/{id}")

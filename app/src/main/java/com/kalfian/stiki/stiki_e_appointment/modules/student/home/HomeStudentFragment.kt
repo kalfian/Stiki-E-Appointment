@@ -156,8 +156,50 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
     private fun getListAppointment() {
         appointmentAdapter.clear()
-        appointmentAdapter.addList(listOf(
-        ))
+        RetrofitClient.callAuth(requireContext()).getStudentAppointments(status = Constant.STATUS_APPOINTMENT_ACCEPTED, limit = 5, filterNow = 1).enqueue(object : Callback<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse> {
+            override fun onResponse(
+                call: Call<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>,
+                response: Response<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data != null) {
+                        appointmentAdapter.clear()
+                        appointmentAdapter.addList(data)
+
+                        if (appointmentAdapter.itemCount > 0) {
+                            showAppointment()
+                        } else {
+                            hideAppointment()
+                        }
+                        return
+                    }
+                }
+
+                hideAppointment()
+            }
+
+            override fun onFailure(call: Call<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>, t: Throwable) {
+                hideAppointment()
+                MotionToast.createColorToast(requireActivity(),"Gagal mendapatkan bimbingan!",
+                    "Periksa koneksi internet anda dan coba lagi",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), R.font.ubuntu_regular)
+                )
+            }
+
+        })
+    }
+
+    private fun showAppointment() {
+        b.emptyAppointment.visibility = View.GONE
+        b.recyclerAppointmentStudent.visibility = View.VISIBLE
+    }
+
+    private fun hideAppointment() {
+        b.emptyAppointment.visibility = View.VISIBLE
         b.recyclerAppointmentStudent.visibility = View.GONE
     }
 

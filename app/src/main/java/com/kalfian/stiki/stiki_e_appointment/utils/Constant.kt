@@ -22,4 +22,10 @@ object Constant {
 
     const val INTENT_CHAT_TITLE = "com.kalfian.stiki.stiki_e_appointment.CHAT_TITLE"
     const val INTENT_APPOINTMENT_ID = "com.kalfian.stiki.stiki_e_appointment.APPOINTMENT_ID"
+
+    const val STATUS_APPOINTMENT_PENDING = 200
+    const val STATUS_APPOINTMENT_ACCEPTED = 201
+    const val STATUS_APPOINTMENT_REJECTED = 202
+    const val STATUS_APPOINTMENT_CANCELED = 203
+    const val STATUS_APPOINTMENT_DONE = 204
 }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kalfian.stiki.stiki_e_appointment.R
@@ -12,6 +13,7 @@ import com.kalfian.stiki.stiki_e_appointment.models.CheckLecture
 class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.ViewHolder>() {
 
     private val itemsCheck: ArrayList<CheckLecture> = ArrayList()
+    private var selectedPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,11 +23,20 @@ class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.Vie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemsCheck[position]
-        holder.checkBox.isChecked = item.isChecked
-        holder.textView.text = item.text
+        holder.checkBox.text = item.text
+        holder.checkBox.isChecked = position == selectedPosition
 
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            item.isChecked = isChecked
+            val adapterPosition = holder.adapterPosition
+            if (isChecked) {
+                selectedPosition = adapterPosition
+                notifyDataSetChanged()
+                item.isChecked = true
+            } else if (adapterPosition == selectedPosition) {
+                selectedPosition = RecyclerView.NO_POSITION
+                notifyDataSetChanged()
+                item.isChecked = false
+            }
         }
     }
 
@@ -34,7 +45,7 @@ class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val checkBox: CheckBox = view.findViewById(R.id.checkBox)
+        val checkBox: RadioButton = view.findViewById(R.id.checkBox)
         val textView: TextView = view.findViewById(R.id.textView)
     }
 
@@ -53,6 +64,7 @@ class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.Vie
 
     fun clear() {
         itemsCheck.clear()
+        selectedPosition = RecyclerView.NO_POSITION
         notifyDataSetChanged()
     }
 }
