@@ -46,7 +46,6 @@ class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.Vie
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val checkBox: RadioButton = view.findViewById(R.id.checkBox)
-        val textView: TextView = view.findViewById(R.id.textView)
     }
 
     fun getList(): List<CheckLecture> {
