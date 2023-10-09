@@ -23,4 +23,5 @@
     <string name="komentar_pembimbing">Komentar pembimbing</string>
     <string name="tanggal">Tanggal</string>
     <string name="tambah_logbook">Tambah Logbook</string>
+    <string name="jadwal_bimbingan_hari_ini">Jadwal Bimbingan Hari ini</string>
 </resources>

@@ -198,9 +198,9 @@ class CreateAppointmentActivity : AppCompatActivity() {
     private fun submitInput() {
         resetError()
 
-        val selectedItems = listCheckLectureAdapter.getCheckedList()
+        val selectedItems = listCheckLectureAdapter.getChecked()
 
-        requestLectureIds = selectedItems.map { it.id } as ArrayList<Int>
+        requestLectureIds = arrayListOf(selectedItems.id)
         requestTitle = b.titleInput.text.toString()
         requestDescription = b.descriptionInput.text.toString()
         requestLocation = b.locationInput.text.toString()

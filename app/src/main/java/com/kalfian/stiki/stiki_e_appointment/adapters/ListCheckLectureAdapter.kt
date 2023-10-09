@@ -1,5 +1,6 @@
 package com.kalfian.stiki.stiki_e_appointment.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,8 +53,8 @@ class ListCheckLectureAdapter : RecyclerView.Adapter<ListCheckLectureAdapter.Vie
         return itemsCheck
     }
 
-    fun getCheckedList(): List<CheckLecture> {
-        return itemsCheck.filter { it.isChecked }
+    fun getChecked(): CheckLecture {
+        return itemsCheck[selectedPosition]
     }
 
     fun addList(items: List<CheckLecture>) {

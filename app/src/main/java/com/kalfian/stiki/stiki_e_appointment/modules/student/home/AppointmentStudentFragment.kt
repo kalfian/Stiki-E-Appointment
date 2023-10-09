@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.R
@@ -27,13 +28,8 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
 
     private lateinit var b: FragmentAppointmentStudentBinding
     private lateinit var appointmentAdapter: ListAppointmentAdapter
+    private lateinit var startCreateActivity: ActivityResultLauncher<Intent>
     private var page = 1
-
-    private val startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            getListAppointment()
-        }
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +42,12 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                getListAppointment()
+            }
+        }
+
         setupListAppointment()
         getListAppointment()
 
@@ -55,8 +57,13 @@ class AppointmentStudentFragment : Fragment(R.layout.fragment_appointment_studen
         }
 
         b.createAppointment.setOnClickListener {
-            val intent = Intent(activity?.applicationContext, CreateAppointmentActivity::class.java)
-            startCreateActivity.launch(intent)
+            try {
+                val intent = Intent(activity?.applicationContext, CreateAppointmentActivity::class.java)
+                startCreateActivity.launch(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
         }
 
     }

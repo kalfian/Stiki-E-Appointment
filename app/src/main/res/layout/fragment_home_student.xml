@@ -113,7 +113,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/appointment_title"
+                        android:text="@string/jadwal_bimbingan_hari_ini"
                         android:fontFamily="@font/ubuntu_bold"
                         android:textColor="@color/dark_blue"
                         android:layout_marginLeft="16dp"
