@@ -19,42 +19,5 @@ class MyApp : Application() {
 
         // Init Firebase
         FirebaseApp.initializeApp(this)
-
-        // Get if it logged in
-        val token = SharedPreferenceUtil.retrieve(this, Constant.SHARED_TOKEN, "")
-        if(token != "") {
-            val isLecture = SharedPreferenceUtil.retrieve(this, Constant.SHARED_IS_LECTURE, false)
-            if (isLecture) {
-                FirebaseMessaging.getInstance().subscribeToTopic("lecture")
-            } else {
-                FirebaseMessaging.getInstance().subscribeToTopic("student")
-            }
-            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val newToken = task.result
-
-                    RetrofitClient.callAuth(applicationContext).postFcmToken(
-                        hashMapOf<String, String>().apply {
-                            put("fcm_token", newToken)
-                        }
-                    ).enqueue(object:
-                        Callback<MessageResponse> {
-                        override fun onResponse(
-                            call: Call<MessageResponse>,
-                            response: Response<MessageResponse>
-                        ) {
-
-                        }
-
-                        override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
-
-                        }
-
-                    })
-
-                    Log.d("TESATESR1234", "New Token: $newToken")
-                }
-            }
-        }
     }
 }

@@ -3,13 +3,16 @@ package com.kalfian.stiki.stiki_e_appointment.modules
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityLoginBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.lecture.DashboardLectureActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.models.requests.LoginRequest
 import com.kalfian.stiki.stiki_e_appointment.models.authResponse.LoginResponse
+import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
@@ -78,6 +81,8 @@ class LoginActivity : AppCompatActivity() {
                             intent = Intent(this@LoginActivity, DashboardLectureActivity::class.java)
                         }
 
+                        attachFcm()
+
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         return
@@ -124,5 +129,44 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         })
+    }
+
+    private fun attachFcm() {
+        // Get if it logged in
+        val token = SharedPreferenceUtil.retrieve(this, Constant.SHARED_TOKEN, "")
+        if(token != "") {
+            val isLecture = SharedPreferenceUtil.retrieve(this, Constant.SHARED_IS_LECTURE, false)
+            if (isLecture) {
+                FirebaseMessaging.getInstance().subscribeToTopic("lecture")
+            } else {
+                FirebaseMessaging.getInstance().subscribeToTopic("student")
+            }
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val newToken = task.result
+
+                    RetrofitClient.callAuth(applicationContext).postFcmToken(
+                        hashMapOf<String, String>().apply {
+                            put("fcm_token", newToken)
+                        }
+                    ).enqueue(object:
+                        Callback<MessageResponse> {
+                        override fun onResponse(
+                            call: Call<MessageResponse>,
+                            response: Response<MessageResponse>
+                        ) {
+
+                        }
+
+                        override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+
+                        }
+
+                    })
+
+                    Log.d("TESATESR1234", "New Token: $newToken")
+                }
+            }
+        }
     }
 }

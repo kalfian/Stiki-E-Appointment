@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingStudentBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
@@ -47,6 +48,10 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
             startActivity(intent)
         }
 
+        b.swipeRefreshSettingStudent.setOnRefreshListener {
+            b.swipeRefreshSettingStudent.isRefreshing = false
+        }
+
     }
 
     private fun logout(context: Context, activity: Activity) {
@@ -56,6 +61,7 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
                 response: Response<MessageResponse>
             ) {
                 if (response.isSuccessful) {
+                    invalidateFCMToken()
                     SharedPreferenceUtil.clearAll(context)
                     val intent = Intent(context, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -74,5 +80,15 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
             }
 
         })
+    }
+
+    private fun invalidateFCMToken() {
+        FirebaseMessaging.getInstance().deleteToken()
+            .addOnSuccessListener {
+                // Token deletion was successful
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors that occur during token deletion
+            }
     }
 }
