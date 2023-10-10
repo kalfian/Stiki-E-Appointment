@@ -23,6 +23,8 @@ object Constant {
     const val INTENT_CHAT_TITLE = "com.kalfian.stiki.stiki_e_appointment.CHAT_TITLE"
     const val INTENT_APPOINTMENT_ID = "com.kalfian.stiki.stiki_e_appointment.APPOINTMENT_ID"
 
+    const val INTENT_GO_TO_NOTIFICATION = "com.kalfian.stiki.stiki_e_appointment.GO_TO_NOTIFICATION"
+
     const val STATUS_APPOINTMENT_PENDING = 200
     const val STATUS_APPOINTMENT_ACCEPTED = 201
     const val STATUS_APPOINTMENT_REJECTED = 202
@@ -30,6 +32,6 @@ object Constant {
     const val STATUS_APPOINTMENT_DONE = 204
 
 
-    const val notification_channel_id = "com.kalfian.stiki.stiki_e_appointment.notification_channel_id"
+    const val notification_channel_id = "com.kalfian.stiki-e-appointment.default_channel_id"
     const val notification_channel_name = "com.kalfian.stiki.stiki_e_appointment.notification_channel_name"
 }

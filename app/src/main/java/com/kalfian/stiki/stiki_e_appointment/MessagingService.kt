@@ -5,10 +5,12 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.kalfian.stiki.stiki_e_appointment.modules.AboutActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.SplashscreenActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.DashboardStudentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
@@ -22,30 +24,42 @@ class MessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        remoteMessage.notification?.let { notification ->
-            val title = notification.title
-            val body = notification.body
+        Log.d("TESATESR1234", "Message Notification Title outside")
 
-            // Create a notification channel (for Android 8.0 and above).
-            createNotificationChannel()
+        val notificationId = System.currentTimeMillis().toInt()
+        createNotificationChannel()
 
-            // Create an intent to open your app or a specific activity when the notification is clicked.
-            val intent = Intent(this, SplashscreenActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val i = Intent(this, SplashscreenActivity::class.java)
+        i.putExtra("goToNotification", true)
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
-            // Build the notification.
-            val notificationBuilder = NotificationCompat.Builder(this, Constant.notification_channel_id)
-                .setSmallIcon(R.drawable.stiki_splash)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
+        val pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_IMMUTABLE)
 
-            // Show the notification.
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(0, notificationBuilder.build())
-        }
+        // Build the notification.
+        val notificationBuilder = NotificationCompat.Builder(this, Constant.notification_channel_id)
+            .setSmallIcon(R.drawable.stiki_splash)
+            .setContentTitle("test")
+            .setContentText("tsete2")
+            .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+
+        // Show the notification.
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(notificationId, notificationBuilder.build())
+
+//        remoteMessage.notification?.let { notification ->
+//            val title = notification.title ?: "Stiki E-Appointment"
+//            val body = notification.body ?: "Ada notifikasi baru"
+//
+//            // Create a notification channel (for Android 8.0 and above).
+//            createNotificationChannel()
+//
+//            Log.d("TESATESR1234", "Message Notification Title: $title")
+//
+//            // Create an intent to open your app or a specific activity when the notification is clicked.
+//
+//        }
 
     }
 

@@ -1,10 +1,12 @@
 package com.kalfian.stiki.stiki_e_appointment.modules.student
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDashboardStudentBinding
+import com.kalfian.stiki.stiki_e_appointment.modules.AboutActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.student.home.AppointmentStudentFragment
 import com.kalfian.stiki.stiki_e_appointment.modules.student.home.HomeStudentFragment
 import com.kalfian.stiki.stiki_e_appointment.modules.student.home.SettingStudentFragment
@@ -18,6 +20,12 @@ class DashboardStudentActivity : AppCompatActivity() {
         b = ActivityDashboardStudentBinding.inflate(layoutInflater)
         val v = b.root
         setContentView(v)
+
+        val goToNotification = intent.getBooleanExtra("goToNotification", false)
+        if (goToNotification) {
+            val intent = Intent(applicationContext, AboutActivity::class.java)
+            startActivity(intent)
+        }
 
         val homeFragment = HomeStudentFragment()
         val appointmentFragment = AppointmentStudentFragment()
