@@ -84,11 +84,5 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
 
     private fun invalidateFCMToken() {
         FirebaseMessaging.getInstance().deleteToken()
-            .addOnSuccessListener {
-                // Token deletion was successful
-            }
-            .addOnFailureListener { exception ->
-                // Handle any errors that occur during token deletion
-            }
     }
 }
