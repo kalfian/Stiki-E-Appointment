@@ -17,4 +17,9 @@ interface Api : StudentAPI {
     @POST("v1/auth/logout")
     fun postLogout(): Call<MessageResponse>
 
+    @POST("v1/user/fcm-token")
+    fun postFcmToken(
+        @Body request: Map<String, String>
+    ): Call<MessageResponse>
+
 }

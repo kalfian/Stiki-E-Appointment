@@ -60,8 +60,8 @@ class SplashscreenActivity : AppCompatActivity(), EasyPermissions.PermissionCall
             }
 
             goTo.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(goTo)
 
+            startActivity(goTo)
         }, delay.toLong())
     }
 

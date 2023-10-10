@@ -22,6 +22,13 @@ object SharedPreferenceUtil {
         return sharedPreferences.getString(key, defaultValue) ?: ""
     }
 
+    fun retrieve(context: Context, key: String, defaultValue: Boolean = false): Boolean {
+        val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(key, "$defaultValue")
+            ?.let { Helper.stringToBoolean(it) }
+            ?: defaultValue
+    }
+
     fun clear(context: Context, key: String) {
         val sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         sharedPreferences.edit().remove(key).apply()
