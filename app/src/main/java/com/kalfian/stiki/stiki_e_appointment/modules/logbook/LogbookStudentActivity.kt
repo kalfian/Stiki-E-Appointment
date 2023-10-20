@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,16 +40,18 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     private var activityId = 0
     private var isLecture: Boolean = false
 
-    private val startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            fetchActivityAndLogbook()
-        }
-    }
+    private lateinit var startCreateActivity: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityDetailLogbookStudentBinding.inflate(layoutInflater)
         val v = b.root
         overlayLoader = OverlayLoader(this)
+
+        startCreateActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                fetchActivityAndLogbook()
+            }
+        }
 
         activityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, 0)
         isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
