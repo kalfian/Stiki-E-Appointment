@@ -128,7 +128,31 @@ class DetailAppointmentActivity : AppCompatActivity() {
     }
 
     private fun setupPageLecture() {
+        RetrofitClient.callAuth(applicationContext).getLectureAppointmentDetail(id).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
+            override fun onResponse(call: retrofit2.Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data == null) {
+                        Alert.showError(
+                            this@DetailAppointmentActivity,
+                            "Gagal mendapatkan detail Bimbingan!", "coba lagi"
+                        )
+                        finish()
+                        return
+                    }
 
+                    attachData(data.appointment, data.activity, data.participants.student, data.participants.lecture, data.participants.lecture2)
+                } else {
+                    finish()
+                }
+                overlayLoader.hide()
+            }
+
+            override fun onFailure(call: retrofit2.Call<GetAppointmentDetailResponse>, t: Throwable) {
+                overlayLoader.hide()
+                finish()
+            }
+        })
     }
 
     private fun attachData(appointment: Appointment, activity: Activity, student: User, lecture: User, lecture2: User? = null) {

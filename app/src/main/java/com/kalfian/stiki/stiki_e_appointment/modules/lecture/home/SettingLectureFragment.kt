@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import com.google.firebase.messaging.FirebaseMessaging
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
@@ -51,30 +52,37 @@ class SettingLectureFragment : Fragment(R.layout.fragment_setting_lecture) {
         }
     }
 
+    private fun doLogout(context: Context) {
+        invalidateFCMToken()
+        SharedPreferenceUtil.clearAll(context)
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
     private fun logout(context: Context, activity: Activity) {
         RetrofitClient.callAuth(context).postLogout().enqueue(object : Callback<MessageResponse> {
             override fun onResponse(
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
-                if (response.isSuccessful) {
-                    SharedPreferenceUtil.clearAll(context)
-                    val intent = Intent(context, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                }
+                doLogout(context)
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
-                MotionToast.createColorToast(activity,"Login Gagal!",
+                MotionToast.createColorToast(activity,"Logout Gagal!",
                     t.message.toString(),
                     MotionToastStyle.ERROR,
                     MotionToast.GRAVITY_BOTTOM,
                     MotionToast.LONG_DURATION,
                     ResourcesCompat.getFont(context, R.font.ubuntu_regular)
                 )
+                doLogout(context)
             }
 
         })
+    }
+
+    private fun invalidateFCMToken() {
+        FirebaseMessaging.getInstance().deleteToken()
     }
 }

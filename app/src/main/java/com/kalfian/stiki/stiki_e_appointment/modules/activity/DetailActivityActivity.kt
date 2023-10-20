@@ -87,7 +87,52 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
     }
 
     private fun setupLecturePage() {
+        RetrofitClient.callAuth(applicationContext).getLectureActivityDetail(id).enqueue(object : Callback<GetActivityDetailResponse> {
+            override fun onResponse(
+                call: Call<GetActivityDetailResponse>,
+                response: Response<GetActivityDetailResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data == null) {
+                        Alert.showError(
+                            this@DetailActivityActivity,
+                            "Gagal mendapatkan detail kegiatan!", "coba lagi"
+                        )
+                        finish()
+                        return
+                    }
 
+                    attachData(data)
+
+                    overlayLoader.hide()
+                    return
+                } else {
+                    overlayLoader.hide()
+                    Alert.showError(
+                        this@DetailActivityActivity,
+                        "Gagal mendapatkan detail kegiatan!", "Periksa koneksi internet anda dan coba lagi [1]"
+                    )
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<GetActivityDetailResponse>, t: Throwable) {
+
+                overlayLoader.hide()
+
+                t.let {
+                    Log.d("TESTING_ERROR", it.message.toString())
+                    Alert.showError(
+                        this@DetailActivityActivity,
+                        "Gagal mendapatkan detail kegiatan!", "Periksa koneksi internet anda dan coba lagi"
+                    )
+                }
+
+                finish()
+            }
+
+        })
     }
     private fun setupStudentPage() {
         RetrofitClient.callAuth(applicationContext).getStudentActivityDetail(id).enqueue(object : Callback<GetActivityDetailResponse> {

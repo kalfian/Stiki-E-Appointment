@@ -56,8 +56,6 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
         db = RealtimeDB.reference().child("chatroom").child(appointmentId.toString()).child("message")
         val messageRef = db
 
-        setupPageStudent()
-
 
         messageRef.addChildEventListener(object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -136,6 +134,12 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
 
         setupListChat()
         getListChat()
+
+        if(isLecture) {
+            setupPageLecture()
+        } else {
+            setupPageStudent()
+        }
     }
 
     private fun setupListChat() {
@@ -155,6 +159,38 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
 
     private fun setupPageStudent() {
         RetrofitClient.callAuth(applicationContext).getStudentAppointmentDetail(appointmentId,
+            loadStudents = true,
+            loadLectures = true
+        ).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
+            override fun onResponse(call: retrofit2.Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data == null) {
+                        Alert.showError(
+                            this@ChatActivity,
+                            "Gagal mendapatkan Chat Bimbingan!", "coba lagi"
+                        )
+                        finish()
+                        return
+                    }
+
+                    users.add(data.participants.student)
+                    users.add(data.participants.lecture)
+                    users.add(data.participants.lecture2 ?: User())
+
+                } else {
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<GetAppointmentDetailResponse>, t: Throwable) {
+                finish()
+            }
+        })
+    }
+
+    private fun setupPageLecture() {
+        RetrofitClient.callAuth(applicationContext).getLectureAppointmentDetail(appointmentId,
             loadStudents = true,
             loadLectures = true
         ).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {

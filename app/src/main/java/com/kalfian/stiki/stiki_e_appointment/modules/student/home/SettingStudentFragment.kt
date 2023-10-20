@@ -54,19 +54,20 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
 
     }
 
+    private fun doLogout(context: Context) {
+        invalidateFCMToken()
+        SharedPreferenceUtil.clearAll(context)
+        val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+    }
     private fun logout(context: Context, activity: Activity) {
         RetrofitClient.callAuth(context).postLogout().enqueue(object : Callback<MessageResponse> {
             override fun onResponse(
                 call: Call<MessageResponse>,
                 response: Response<MessageResponse>
             ) {
-                if (response.isSuccessful) {
-                    invalidateFCMToken()
-                    SharedPreferenceUtil.clearAll(context)
-                    val intent = Intent(context, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                }
+                doLogout(context)
             }
 
             override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
@@ -77,6 +78,7 @@ class SettingStudentFragment : Fragment(R.layout.fragment_setting_student) {
                     MotionToast.LONG_DURATION,
                     ResourcesCompat.getFont(context, R.font.ubuntu_regular)
                 )
+                doLogout(context)
             }
 
         })
