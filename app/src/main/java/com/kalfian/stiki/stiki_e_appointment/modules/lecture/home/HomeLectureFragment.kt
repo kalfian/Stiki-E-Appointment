@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListActivityAdapter
@@ -14,10 +15,20 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentHomeLectureBind
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
 import com.kalfian.stiki.stiki_e_appointment.models.Participant
+import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityResponse
 import com.kalfian.stiki.stiki_e_appointment.modules.activity.DetailActivityActivity
 import com.kalfian.stiki.stiki_e_appointment.modules.appointment.DetailAppointmentActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
+import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
+import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 
 class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
@@ -27,6 +38,7 @@ class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
     private lateinit var b: FragmentHomeLectureBinding
     private lateinit var activityAdapter: ListActivityAdapter
     private lateinit var appointmentAdapter: ListAppointmentAdapter
+    private lateinit var overlayLoader: OverlayLoader
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,32 +52,46 @@ class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        overlayLoader = OverlayLoader(requireContext())
 
         setupListActivity()
         setupListAppointment()
 
-        getListActivity()
-        getListAppointment()
+        loadPage()
 
         b.swipeRefreshHome.setOnRefreshListener {
-            if (b.emptyAppointment.visibility == View.GONE) {
-                b.emptyAppointment.visibility = View.VISIBLE
-                b.recyclerAppointment.visibility = View.GONE
-            } else {
-                b.emptyAppointment.visibility = View.GONE
-                b.recyclerAppointment.visibility = View.VISIBLE
-            }
-
-            if (b.emptyActivity.visibility == View.GONE) {
-                b.emptyActivity.visibility = View.VISIBLE
-                b.recyclerActivity.visibility = View.GONE
-            } else {
-                b.emptyActivity.visibility = View.GONE
-                b.recyclerActivity.visibility = View.VISIBLE
-            }
-
+            loadPage()
             b.swipeRefreshHome.isRefreshing = false
         }
+    }
+
+    private fun loadPage() {
+        overlayLoader.show()
+        runBlocking {
+            val attachIdentity = async{ attachIdentity() }
+            val getListActivity = async{ getListActivity() }
+            val getListAppointment = async{ getListAppointment() }
+
+            try {
+                attachIdentity.await()
+                getListActivity.await()
+                getListAppointment.await()
+
+                overlayLoader.hide()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                overlayLoader.hide()
+            }
+        }
+    }
+
+    private fun attachIdentity() {
+
+        val name = SharedPreferenceUtil.retrieve(requireContext(), Constant.SHARED_NAME, "-")
+        val identity = SharedPreferenceUtil.retrieve(requireContext(), Constant.SHARED_IDENTITY, "-")
+
+        b.lectureName.text = name
+        b.lectureIdentity.text = identity
     }
 
     private fun setupListActivity() {
@@ -83,25 +109,113 @@ class HomeLectureFragment : Fragment(R.layout.fragment_home_lecture),
     }
 
     private fun getListActivity() {
-        appointmentAdapter.clear()
+        activityAdapter.clear()
+        RetrofitClient.callAuth(requireContext()).getLectureActivity().enqueue(object :
+            Callback<GetActivityResponse> {
+            override fun onResponse(
+                call: Call<GetActivityResponse>,
+                response: Response<GetActivityResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data != null) {
+                        activityAdapter.clear()
+                        activityAdapter.addList(data)
 
+                        if (activityAdapter.itemCount > 0) {
+                            showActivity()
+                        } else {
+                            hideActivity()
+                        }
+                        return
+                    }
+
+                    hideActivity()
+                }
+            }
+
+            override fun onFailure(call: Call<GetActivityResponse>, t: Throwable) {
+                hideActivity()
+                MotionToast.createColorToast(requireActivity(),"Gagal mendapatkan kegiatan!",
+                    "Periksa koneksi internet anda dan coba lagi",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), R.font.ubuntu_regular)
+                )
+            }
+
+        })
+    }
+
+    private fun hideActivity() {
+        b.emptyActivity.visibility = View.VISIBLE
         b.recyclerActivity.visibility = View.GONE
+    }
+
+    private fun showActivity() {
+        b.emptyActivity.visibility = View.GONE
+        b.recyclerAppointment.visibility = View.VISIBLE
     }
 
     private fun getListAppointment() {
         appointmentAdapter.clear()
+        RetrofitClient.callAuth(requireContext()).getLectureAppointments(loadLectures = true, status = Constant.STATUS_APPOINTMENT_ACCEPTED, limit = 5, filterNow = 1).enqueue(object : Callback<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse> {
+            override fun onResponse(
+                call: Call<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>,
+                response: Response<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()?.data
+                    if (data != null) {
+                        appointmentAdapter.clear()
+                        appointmentAdapter.addList(data)
+
+                        if (appointmentAdapter.itemCount > 0) {
+                            showAppointment()
+                        } else {
+                            hideAppointment()
+                        }
+                        return
+                    }
+                }
+
+                hideAppointment()
+            }
+
+            override fun onFailure(call: Call<com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentsResponse>, t: Throwable) {
+                hideAppointment()
+                MotionToast.createColorToast(requireActivity(),"Gagal mendapatkan bimbingan!",
+                    "Periksa koneksi internet anda dan coba lagi",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    ResourcesCompat.getFont(requireContext(), R.font.ubuntu_regular)
+                )
+            }
+
+        })
+    }
+
+    private fun showAppointment() {
+        b.emptyAppointment.visibility = View.GONE
+        b.recyclerAppointment.visibility = View.VISIBLE
+    }
+
+    private fun hideAppointment() {
+        b.emptyAppointment.visibility = View.VISIBLE
         b.recyclerAppointment.visibility = View.GONE
     }
 
     override fun onItemClickListener(data: Appointment) {
         val intent = Intent(activity?.applicationContext, DetailAppointmentActivity::class.java)
-        intent.putExtra(Constant.IS_LECTURE, true)
+        intent.putExtra(Constant.DETAIL_APPOINTMENT_ID, data.id)
         startActivity(intent)
     }
 
     override fun onItemClickListener(data: Activity) {
         val intent = Intent(activity?.applicationContext, DetailActivityActivity::class.java)
-        intent.putExtra(Constant.IS_LECTURE, true)
+        intent.putExtra(Constant.DETAIL_ACTIVITY_ID, data.id)
         startActivity(intent)
     }
 }

@@ -70,17 +70,19 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/lecture_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/ubuntu_bold"
-                                android:text="Dosen 1"
+                                android:text="@string/none"
                                 android:textColor="@color/white" />
 
                             <TextView
+                                android:id="@+id/lecture_identity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/ubuntu_regular"
-                                android:text="12345678"
+                                android:text="@string/none"
                                 android:textColor="@color/white" />
                         </LinearLayout>
 

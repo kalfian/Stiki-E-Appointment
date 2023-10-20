@@ -42,7 +42,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         b = FragmentHomeStudentBinding.inflate(inflater, container, false)
         return b.root
     }
@@ -106,7 +106,7 @@ class HomeStudentFragment : Fragment(R.layout.fragment_home_student),
     }
 
     private fun getListActivity() {
-        appointmentAdapter.clear()
+        activityAdapter.clear()
 
         RetrofitClient.callAuth(requireContext()).getStudentActivity().enqueue(object : Callback<GetActivityResponse> {
             override fun onResponse(
