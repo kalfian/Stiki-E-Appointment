@@ -13,6 +13,7 @@ import com.kalfian.stiki.stiki_e_appointment.R
 import com.kalfian.stiki.stiki_e_appointment.databinding.FragmentSettingLectureBinding
 import com.kalfian.stiki.stiki_e_appointment.modules.LoginActivity
 import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
+import com.kalfian.stiki.stiki_e_appointment.modules.AboutActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import retrofit2.Call
@@ -38,6 +39,15 @@ class SettingLectureFragment : Fragment(R.layout.fragment_setting_lecture) {
 
         b.logoutBtn.setOnClickListener {
             logout(requireContext(), requireActivity())
+        }
+
+        b.btnAbout.setOnClickListener {
+            val intent = Intent(requireContext(), AboutActivity::class.java)
+            startActivity(intent)
+        }
+
+        b.swipeRefresh.setOnRefreshListener {
+            b.swipeRefresh.isRefreshing = false
         }
     }
 

@@ -28,14 +28,14 @@ interface LectureAPI {
     @GET("v1/lecture/activity/{id}/appointment")
     fun getLectureAppointmentsByActivity(
         @Path("id") activityId: Int,
-        @Query("load_students") loadStudents: Boolean = false,
+        @Query("load_student") loadStudent: Boolean = false,
         @Query("load_lectures") loadLectures: Boolean = false
     )
 
     @GET("v1/lecture/appointment")
     fun getLectureAppointments(
-        @Query("load_lectures") loadStudents: Boolean = false,
-        @Query("load_students") loadLectures: Boolean = false,
+        @Query("load_lectures") loadLectures: Boolean = false,
+        @Query("load_student") loadStudent: Boolean = false,
         @Query("status") status: Int? = null,
         @Query("order_by") orderBy: String = "start_date",
         @Query("order_type") orderType: String = "desc",
