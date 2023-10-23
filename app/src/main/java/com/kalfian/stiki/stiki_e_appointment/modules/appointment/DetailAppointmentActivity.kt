@@ -3,36 +3,44 @@ package com.kalfian.stiki.stiki_e_appointment.modules.appointment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.kalfian.stiki.stiki_e_appointment.adapters.ListRadioBottomSheetAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailAppointmentBinding
 import com.kalfian.stiki.stiki_e_appointment.models.Activity
 import com.kalfian.stiki.stiki_e_appointment.models.Appointment
+import com.kalfian.stiki.stiki_e_appointment.models.CheckRadio
 import com.kalfian.stiki.stiki_e_appointment.models.User
 import com.kalfian.stiki.stiki_e_appointment.models.appointmentResponse.GetAppointmentDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateStatusAppointmentRequest
 import com.kalfian.stiki.stiki_e_appointment.modules.chat.ChatActivity
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.AppointmentStatus
+import com.kalfian.stiki.stiki_e_appointment.utils.BottomSheetRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
 import com.kalfian.stiki.stiki_e_appointment.utils.Helper
 import com.kalfian.stiki.stiki_e_appointment.utils.OverlayLoader
 import com.kalfian.stiki.stiki_e_appointment.utils.RetrofitClient
 import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
+import com.kalfian.stiki.stiki_e_appointment.utils.bottomSheet
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailAppointmentActivity : AppCompatActivity() {
 
 
     private lateinit var b: ActivityDetailAppointmentBinding
     private lateinit var overlayLoader: OverlayLoader
+    private lateinit var bottomSheet: BottomSheetDialog
 
     private var isLecture: Boolean = false
     var id = 0
+    private var appointmentStatus = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,18 +71,73 @@ class DetailAppointmentActivity : AppCompatActivity() {
         }
 
         b.btnChangeStatusLogbook.setOnClickListener {
-            val dialog = BottomSheetDialog(this, R.style.Theme_Design_Light_BottomSheetDialog)
-            val dialogView = LayoutInflater.from(applicationContext).inflate(
-                com.kalfian.stiki.stiki_e_appointment.R.layout.custom_bottom_sheet,
-                findViewById<LinearLayout>(com.kalfian.stiki.stiki_e_appointment.R.id.status_bottom_sheet)
-            )
+            val listRadioBottomSheetAdapter = ListRadioBottomSheetAdapter()
+            var listStatus = listOf<CheckRadio>()
 
-            dialogView.findViewById<View>(com.kalfian.stiki.stiki_e_appointment.R.id.bottom_close_btn).setOnClickListener {
-                dialog.dismiss()
+            if(appointmentStatus == Constant.STATUS_APPOINTMENT_PENDING) {
+                listStatus = listOf(
+                    CheckRadio("Disetujui", false, Constant.STATUS_APPOINTMENT_ACCEPTED),
+                    CheckRadio("Ditolak", false, Constant.STATUS_APPOINTMENT_REJECTED),
+                    CheckRadio("Dibatalkan", false, Constant.STATUS_APPOINTMENT_CANCELED)
+                )
             }
 
-            dialog.setContentView(dialogView)
-            dialog.show()
+            if(appointmentStatus == Constant.STATUS_APPOINTMENT_ACCEPTED) {
+                listStatus = listOf(
+                    CheckRadio("Selesai", false, Constant.STATUS_APPOINTMENT_DONE)
+                )
+            }
+
+            listRadioBottomSheetAdapter.addList(listStatus)
+
+            val request = BottomSheetRequest(
+                ctx = this,
+                title = "Kelola Bimbingan",
+                okTitle = "Ubah Status",
+                disableOkButton = false,
+                btnOkOnClick = {
+
+                    val checked = listRadioBottomSheetAdapter.getChecked()
+                    val payload = UpdateStatusAppointmentRequest(checked.id)
+                    overlayLoader.show()
+
+                    RetrofitClient.callAuth(applicationContext).putLectureAppointment(id, payload).enqueue(object :
+                        Callback<MessageResponse> {
+                        override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                            if (response.isSuccessful) {
+                                Alert.showSuccess(
+                                    this@DetailAppointmentActivity,
+                                    "Berhasil mengubah status Bimbingan!", "ok"
+                                )
+                                appointmentStatus = payload.status
+                                b.appointmentStatus.text = AppointmentStatus().getStatusText(payload.status)
+                                b.appointmentStatus.chipBackgroundColor = AppointmentStatus().getStatusColor(payload.status, applicationContext)
+                                bottomSheet.dismiss()
+                                overlayLoader.hide()
+                            } else {
+                                Alert.showError(
+                                    this@DetailAppointmentActivity,
+                                    "Gagal mengubah status Bimbingan!", "coba lagi"
+                                )
+                                bottomSheet.dismiss()
+                                overlayLoader.hide()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                            Alert.showError(
+                                this@DetailAppointmentActivity,
+                                "Gagal mengubah status Bimbingan!", "coba lagi"
+                            )
+                            bottomSheet.dismiss()
+                            overlayLoader.hide()
+                        }
+                    })
+                },
+                recyclerViewAdapterCheck = listRadioBottomSheetAdapter
+            )
+
+            bottomSheet = bottomSheet(request)
         }
 
         setupPage(isLecture)
@@ -101,7 +164,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
 
     private fun setupPageStudent() {
         RetrofitClient.callAuth(applicationContext).getStudentAppointmentDetail(id).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
-            override fun onResponse(call: retrofit2.Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
+            override fun onResponse(call: Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
                 if (response.isSuccessful) {
                     val data = response.body()?.data
                     if (data == null) {
@@ -109,18 +172,20 @@ class DetailAppointmentActivity : AppCompatActivity() {
                             this@DetailAppointmentActivity,
                             "Gagal mendapatkan detail Bimbingan!", "coba lagi"
                         )
+                        overlayLoader.hide()
                         finish()
                         return
                     }
 
+                    overlayLoader.hide()
                     attachData(data.appointment, data.activity, data.participants.student, data.participants.lecture, data.participants.lecture2)
                 } else {
+                    overlayLoader.hide()
                     finish()
                 }
-                overlayLoader.hide()
             }
 
-            override fun onFailure(call: retrofit2.Call<GetAppointmentDetailResponse>, t: Throwable) {
+            override fun onFailure(call: Call<GetAppointmentDetailResponse>, t: Throwable) {
                 overlayLoader.hide()
                 finish()
             }
@@ -129,7 +194,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
 
     private fun setupPageLecture() {
         RetrofitClient.callAuth(applicationContext).getLectureAppointmentDetail(id).enqueue(object : retrofit2.Callback<GetAppointmentDetailResponse> {
-            override fun onResponse(call: retrofit2.Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
+            override fun onResponse(call: Call<GetAppointmentDetailResponse>, response: retrofit2.Response<GetAppointmentDetailResponse>) {
                 if (response.isSuccessful) {
                     val data = response.body()?.data
                     if (data == null) {
@@ -148,7 +213,7 @@ class DetailAppointmentActivity : AppCompatActivity() {
                 overlayLoader.hide()
             }
 
-            override fun onFailure(call: retrofit2.Call<GetAppointmentDetailResponse>, t: Throwable) {
+            override fun onFailure(call: Call<GetAppointmentDetailResponse>, t: Throwable) {
                 overlayLoader.hide()
                 finish()
             }
@@ -157,6 +222,8 @@ class DetailAppointmentActivity : AppCompatActivity() {
 
     private fun attachData(appointment: Appointment, activity: Activity, student: User, lecture: User, lecture2: User? = null) {
         b.nav.headerTitle.text = appointment.title
+
+        appointmentStatus = appointment.status
 
         Glide.with(applicationContext)
             .load(activity.banner)

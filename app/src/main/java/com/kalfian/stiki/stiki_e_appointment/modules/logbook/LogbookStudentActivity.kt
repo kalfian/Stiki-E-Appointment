@@ -182,7 +182,7 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
             btnOkOnClick = {
 
             },
-            recyclerViewAdapter = listButtonAdapter
+            recyclerViewAdapterButton = listButtonAdapter
         )
 
         bottomSheet = bottomSheet(request)

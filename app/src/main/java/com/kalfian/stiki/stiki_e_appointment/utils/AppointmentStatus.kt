@@ -11,7 +11,7 @@ class AppointmentStatus {
         const val ACCEPTED = 201
         const val REJECTED = 202
         const val CANCELED = 203
-        const val DONE = 2004
+        const val DONE = 204
     }
 
     fun getStatusText(status: Int): String {

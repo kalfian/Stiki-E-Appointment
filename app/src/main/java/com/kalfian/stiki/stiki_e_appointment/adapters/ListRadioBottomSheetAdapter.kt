@@ -54,6 +54,11 @@ class ListRadioBottomSheetAdapter : RecyclerView.Adapter<ListRadioBottomSheetAda
         return itemsCheck[selectedPosition]
     }
 
+    fun add(item: CheckRadio) {
+        itemsCheck.add(item)
+        notifyDataSetChanged()
+    }
+
     fun addList(items: List<CheckRadio>) {
         itemsCheck.addAll(items)
         notifyDataSetChanged()

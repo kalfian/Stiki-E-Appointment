@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.kalfian.stiki.stiki_e_appointment.adapters.ListBottomSheetButtonAdapter
+import com.kalfian.stiki.stiki_e_appointment.adapters.ListRadioBottomSheetAdapter
 import com.kalfian.stiki.stiki_e_appointment.databinding.CustomBottomSheetBinding
 
 data class BottomSheetRequest(
@@ -19,7 +20,8 @@ data class BottomSheetRequest(
     val okTitle: String? = null,
     val disableOkButton: Boolean = false,
     val btnOkOnClick: (String) -> Unit = {},
-    val recyclerViewAdapter: ListBottomSheetButtonAdapter? = null,
+    val recyclerViewAdapterButton: ListBottomSheetButtonAdapter? = null,
+    val recyclerViewAdapterCheck: ListRadioBottomSheetAdapter? = null,
     val useInput: Boolean = false,
     val inputHint: String? = null,
     val inputValue: String? = null
@@ -38,11 +40,18 @@ fun bottomSheet(params: BottomSheetRequest) : BottomSheetDialog {
     dialog.setContentView(b.root)
 
     // Set the RecyclerView adapter when provided
-    if (params.recyclerViewAdapter != null) {
+    if (params.recyclerViewAdapterButton != null) {
         val recyclerView = b.bottomSheetRv
         val lm = LinearLayoutManager(params.ctx, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = lm
-        recyclerView.adapter = params.recyclerViewAdapter
+        recyclerView.adapter = params.recyclerViewAdapterButton
+    }
+
+    if (params.recyclerViewAdapterCheck != null) {
+        val recyclerView = b.bottomSheetRv
+        val lm = LinearLayoutManager(params.ctx, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = lm
+        recyclerView.adapter = params.recyclerViewAdapterCheck
     }
 
     // Set a close button click listener if provided
