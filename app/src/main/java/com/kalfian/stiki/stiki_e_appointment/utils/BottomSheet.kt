@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +18,11 @@ data class BottomSheetRequest(
     val title: String,
     val okTitle: String? = null,
     val disableOkButton: Boolean = false,
-    val btnOkOnClick: View.OnClickListener? = null,
-    val recyclerViewAdapter: ListBottomSheetButtonAdapter? = null
+    val btnOkOnClick: (String) -> Unit = {},
+    val recyclerViewAdapter: ListBottomSheetButtonAdapter? = null,
+    val useInput: Boolean = false,
+    val inputHint: String? = null,
+    val inputValue: String? = null
 )
 fun bottomSheet(params: BottomSheetRequest) : BottomSheetDialog {
     val dialog = BottomSheetDialog(params.ctx, R.style.Theme_Design_Light_BottomSheetDialog)
@@ -44,6 +48,12 @@ fun bottomSheet(params: BottomSheetRequest) : BottomSheetDialog {
     // Set a close button click listener if provided
     b.bottomTitle.text = params.title
 
+    if(params.useInput) {
+        b.editText.visibility = View.VISIBLE
+        b.editText.hint = params.inputHint
+        b.editText.setText(params.inputValue)
+    }
+
     b.bottomCloseBtn.setOnClickListener {
         dialog.dismiss()
     }
@@ -53,7 +63,13 @@ fun bottomSheet(params: BottomSheetRequest) : BottomSheetDialog {
     }
 
     b.bottomBtn.text = params.okTitle
-    b.bottomBtn.setOnClickListener(params.btnOkOnClick)
+    b.bottomBtn.setOnClickListener{
+        if(params.useInput) {
+            params.btnOkOnClick(b.editText.text.toString())
+        } else {
+            params.btnOkOnClick("")
+        }
+    }
 
     dialog.show()
     return dialog

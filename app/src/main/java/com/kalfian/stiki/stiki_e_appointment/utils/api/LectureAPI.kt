@@ -8,10 +8,12 @@ import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbookDetailResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
 import com.kalfian.stiki.stiki_e_appointment.models.requests.CreateLogbookRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateStatusAppointmentRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -54,10 +56,17 @@ interface LectureAPI {
         @Query("load_lectures") loadLectures: Boolean = false
     ): Call<GetAppointmentDetailResponse>
 
+    @PUT("v1/lecture/appointment/{id}")
+    fun putLectureAppointment(
+        @Path("id") appointmentId: Int,
+        @Body request: UpdateStatusAppointmentRequest
+    ): Call<MessageResponse>
+
     //Logbook
-    @GET("v1/student/activity/{id}/logbook")
+    @GET("v1/lecture/activity/{id}/logbook")
     fun getLectureLogbookByActivity(
         @Path("id") activityId: Int,
+        @Query("user_id") userId: Int = 0
     ): Call<GetLogbooksResponse>
 
     @POST("v1/lecture/activity/{id}/logbook")

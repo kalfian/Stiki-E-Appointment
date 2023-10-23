@@ -229,11 +229,12 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
     override fun onBtnLogbookClickListener(data: Participant) {
         if (isLecture) {
             val intent = Intent(this, LogbookLectureActivity::class.java)
+            intent.putExtra(Constant.DETAIL_ACTIVITY_ID, id)
+            intent.putExtra(Constant.DETAIL_PARTICIPANT_ID, data.user.id)
+            intent.putExtra(Constant.DETAIL_PARTICIPANT_NAME, data.user.name)
+            intent.putExtra(Constant.DETAIL_PARTICIPANT_IDENTITY, data.user.identity)
             startActivity(intent)
             return
         }
-
-        val intent = Intent(this, LogbookStudentActivity::class.java)
-        startActivity(intent)
     }
 }

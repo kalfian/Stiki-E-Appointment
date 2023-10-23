@@ -28,4 +28,5 @@
     <string name="version_1_0">Version 1.0</string>
     <string name="description_about">Applikasi pengajuan bimbingan skripsi online untuk mahasiswa dan dosen pembimbing</string>
     <string name="default_notification_channel_id">com.kalfian.stiki-e-appointment.default_channel_id</string>
+    <string name="ubah_komentar">Ubah Komentar</string>
 </resources>

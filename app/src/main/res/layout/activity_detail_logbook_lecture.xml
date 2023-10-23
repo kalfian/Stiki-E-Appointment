@@ -74,11 +74,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_white"
                         android:orientation="horizontal"
-                        android:gravity="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:gravity="center">
 
                         <ImageView
                             android:id="@+id/activity_banner"
@@ -121,6 +117,55 @@
 
 
 
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:padding="16dp"
+                        android:layout_marginLeft="@dimen/dimen_16"
+                        android:layout_marginRight="@dimen/dimen_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_white"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="wrap_content">
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:backgroundTint="@color/blue"
+                                android:src="@drawable/ic_baseline_person_blue_24"
+                                app:riv_border_color="@color/blue"
+                                app:riv_border_width="2dp"
+                                app:riv_corner_radius="150dp" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="16dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/participant_name"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/ubuntu_bold"
+                                    android:text="@string/none"
+                                    android:textColor="@color/blue" />
+
+                                <TextView
+                                    android:id="@+id/participant_identity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/ubuntu_regular"
+                                    android:text="@string/none"
+                                    android:textColor="@color/blue" />
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>

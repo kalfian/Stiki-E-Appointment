@@ -177,7 +177,7 @@ class LogbookStudentActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
         val request = BottomSheetRequest(
             ctx = this,
             title = "Kelola Logbook",
-            okTitle = "Close",
+            okTitle = "Ubah",
             disableOkButton = true,
             btnOkOnClick = {
 

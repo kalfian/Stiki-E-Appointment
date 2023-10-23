@@ -39,6 +39,8 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     private var activityName = ""
     private var activityId = 0
     private var participantId = 0
+    private var participantName = ""
+    private var participantIdentity = ""
     private var isLecture: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,11 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
 
         overlayLoader = OverlayLoader(this)
         activityId = intent.getIntExtra(Constant.DETAIL_ACTIVITY_ID, 0)
+        participantId = intent.getIntExtra(Constant.DETAIL_PARTICIPANT_ID, 0)
+        participantName = intent.getStringExtra(Constant.DETAIL_PARTICIPANT_NAME) ?: "-"
+        participantIdentity = intent.getStringExtra(Constant.DETAIL_PARTICIPANT_IDENTITY) ?: "-"
+
+
         isLecture = Helper.stringToBoolean(SharedPreferenceUtil.retrieve(applicationContext, Constant.SHARED_IS_LECTURE, "false"))
 
         setContentView(v)
@@ -104,7 +111,7 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
                             centerRadius = 10f
                             start()
                         })
-                        .error(com.kalfian.stiki.stiki_e_appointment.R.drawable.noimage)
+                        .error(R.drawable.noimage)
                         .into(b.activityBanner)
                     b.activityTitle.text = activity.name
                     b.activityLocation.text = activity.location
@@ -113,6 +120,9 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
                         append("-")
                         append(activity.endDate)
                     }
+
+                    b.participantName.text = participantName
+                    b.participantIdentity.text = participantIdentity
                 }
             }
 
@@ -141,7 +151,7 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
 
     private fun getListLogbook() {
         logbookAdapter.clear()
-        RetrofitClient.callAuth(applicationContext).getLectureLogbookByActivity(activityId).enqueue(object: retrofit2.Callback<GetLogbooksResponse> {
+        RetrofitClient.callAuth(applicationContext).getLectureLogbookByActivity(activityId, userId = participantId).enqueue(object: retrofit2.Callback<GetLogbooksResponse> {
             override fun onResponse(call: retrofit2.Call<GetLogbooksResponse>, response: retrofit2.Response<GetLogbooksResponse>) {
                 if (response.isSuccessful) {
                     val data = response.body()
@@ -163,36 +173,29 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
     }
 
     override fun onItemClickListener(data: Logbook) {
-        // Change to list
-//        val listButtonAdapter = ListBottomSheetButtonAdapter(this)
-//        listButtonAdapter.add(BottomSheetButton(1, "Edit Logbook", data.id.toString()))
-//
-//        val request = BottomSheetRequest(
-//            ctx = this,
-//            title = "Kelola Logbook",
-//            okTitle = "Close",
-//            disableOkButton = true,
-//            btnOkOnClick = {
-//
-//            },
-//            recyclerViewAdapter = listButtonAdapter
-//        )
-//
-//        bottomSheet = bottomSheet(request)
+
     }
 
     override fun onChangeStatusCliclListener(data: Logbook) {
-        val dialog = BottomSheetDialog(this, com.google.android.material.R.style.Theme_Design_Light_BottomSheetDialog)
-        val dialogView = LayoutInflater.from(applicationContext).inflate(
-            R.layout.custom_bottom_sheet,
-            findViewById<LinearLayout>(R.id.status_bottom_sheet)
+        val request = BottomSheetRequest(
+            ctx = this,
+            title = "Ubah Komentar",
+            okTitle = "Ok",
+            btnOkOnClick = {
+                saveComment(data.id, it) {
+                    bottomSheet.dismiss()
+                    getListLogbook()
+                }
+            },
+            useInput = true,
+            inputHint = "Ubah Komentar",
+            inputValue = data.lectureComment
         )
 
-        dialogView.findViewById<View>(R.id.bottom_close_btn).setOnClickListener {
-            dialog.dismiss()
-        }
+        bottomSheet = bottomSheet(request)
+    }
 
-        dialog.setContentView(dialogView)
-        dialog.show()
+    private fun saveComment(id: Int, comment: String, callback: () -> Unit) {
+        callback()
     }
 }
