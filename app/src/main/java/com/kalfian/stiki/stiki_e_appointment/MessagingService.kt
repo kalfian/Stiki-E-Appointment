@@ -24,7 +24,7 @@ class MessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d("TOKEN", token)
+        Log.d("NOTIFSS", token)
         // Update Token
         RetrofitClient.callAuth(applicationContext).postFcmToken(hashMapOf<String, String>().apply {
             put("fcm_token", token)
@@ -47,6 +47,9 @@ class MessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
         val data = remoteMessage.data
+
+        Log.d("NOTIFSS", data.toString())
+
         val title = data["title"] ?: "Stiki E-Appointment"
         val body = data["body"] ?: "Ada notifikasi baru"
         val intentTo = data["intentTo"]
@@ -59,6 +62,8 @@ class MessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(title: String, body: String, notificationId: Int) {
+        Log.d("NOTIFSS", "Send Notification")
+
         val i = Intent(this, SplashscreenActivity::class.java)
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 

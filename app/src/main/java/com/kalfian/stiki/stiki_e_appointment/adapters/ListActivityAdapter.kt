@@ -51,7 +51,7 @@ class ListActivityAdapter(onClick: AdapterListActivityOnClickListener): Recycler
                     centerRadius = 10f
                     start()
                 })
-                .error(R.drawable.noimage)
+                .error(R.drawable.no_image_stiki)
                 .into(b.activityBanner)
 
         }

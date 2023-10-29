@@ -13,6 +13,7 @@ android {
 
     defaultConfig {
         buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:8000/api/\""
+//        buildConfigField "String", "BASE_URL", "\"https://appointment.kalfian.com/api/\""
 
         applicationId "com.kalfian.stiki.stiki_e_appointment"
         minSdk 26

@@ -194,7 +194,7 @@ class DetailActivityActivity : AppCompatActivity(), ListParticipantAdapter.Adapt
                 centerRadius = 10f
                 start()
             })
-            .error(R.drawable.noimage)
+            .error(R.drawable.no_image_stiki)
             .into(b.activityBanner)
         b.nav.headerTitle.text = data.name
         b.activityTitle.text = data.name

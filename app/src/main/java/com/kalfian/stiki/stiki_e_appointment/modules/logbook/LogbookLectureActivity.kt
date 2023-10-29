@@ -111,7 +111,7 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
                             centerRadius = 10f
                             start()
                         })
-                        .error(R.drawable.noimage)
+                        .error(R.drawable.no_image_stiki)
                         .into(b.activityBanner)
                     b.activityTitle.text = activity.name
                     b.activityLocation.text = activity.location
