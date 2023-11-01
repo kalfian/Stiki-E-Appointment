@@ -51,43 +51,45 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
 
         setContentView(v)
 
-        setupPage()
+        setupPage {
+            db = RealtimeDB.reference().child("chatroom").child(appointmentId.toString()).child("message")
+            val messageRef = db
 
-        db = RealtimeDB.reference().child("chatroom").child(appointmentId.toString()).child("message")
-        val messageRef = db
 
+            messageRef.addChildEventListener(object : ChildEventListener{
+                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                    val chat = snapshot.getValue(Chat::class.java)
+                    if (chat != null) {
 
-        messageRef.addChildEventListener(object : ChildEventListener{
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val chat = snapshot.getValue(Chat::class.java)
-                if (chat != null) {
+                        Log.d("ChattingGaes", users.toString())
 
-                    chat.participantName = users.find { it.id == chat.participantId }?.name ?: "-"
+                        chat.participantName = users.find { it.id == chat.participantId }?.name ?: chat.participantId.toString()
 
-                    chatAdapter.add(chat)
-                    b.nestedScrollView.post {
-                        b.nestedScrollView.fullScroll(View.FOCUS_DOWN)
+                        chatAdapter.add(chat)
+                        b.nestedScrollView.post {
+                            b.nestedScrollView.fullScroll(View.FOCUS_DOWN)
+                        }
                     }
                 }
-            }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
 
-            }
+                }
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
+                override fun onChildRemoved(snapshot: DataSnapshot) {
 
-            }
+                }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
 
-            }
+                }
 
-            override fun onCancelled(error: DatabaseError) {
+                override fun onCancelled(error: DatabaseError) {
 
-            }
+                }
 
-        })
+            })
+        }
 
         b.btnSend.setOnClickListener {
             val message = b.textInput.text.toString()
@@ -118,7 +120,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
         }
     }
 
-    private fun setupPage() {
+    private fun setupPage(callback: () -> Unit = {}){
         if (appointmentId == 0) {
             finish()
         }
@@ -136,9 +138,9 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
         getListChat()
 
         if(isLecture) {
-            setupPageLecture()
+            setupPageLecture(callback)
         } else {
-            setupPageStudent()
+            setupPageStudent(callback)
         }
     }
 
@@ -157,7 +159,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
 
     }
 
-    private fun setupPageStudent() {
+    private fun setupPageStudent(callback: () -> Unit) {
         RetrofitClient.callAuth(applicationContext).getStudentAppointmentDetail(appointmentId,
             loadStudents = true,
             loadLectures = true
@@ -177,7 +179,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
                     users.add(data.participants.student)
                     users.add(data.participants.lecture)
                     users.add(data.participants.lecture2 ?: User())
-
+                    callback()
                 } else {
                     finish()
                 }
@@ -189,7 +191,7 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
         })
     }
 
-    private fun setupPageLecture() {
+    private fun setupPageLecture(callback: () -> Unit) {
         RetrofitClient.callAuth(applicationContext).getLectureAppointmentDetail(appointmentId,
             loadStudents = true,
             loadLectures = true
@@ -209,6 +211,8 @@ class ChatActivity : AppCompatActivity(), ListChatAdapter.AdapterListChatOnClick
                     users.add(data.participants.student)
                     users.add(data.participants.lecture)
                     users.add(data.participants.lecture2 ?: User())
+
+                    callback()
 
                 } else {
                     finish()
