@@ -17,7 +17,10 @@ import com.kalfian.stiki.stiki_e_appointment.databinding.ActivityDetailLogbookLe
 import com.kalfian.stiki.stiki_e_appointment.models.BottomSheetButton
 import com.kalfian.stiki.stiki_e_appointment.models.Logbook
 import com.kalfian.stiki.stiki_e_appointment.models.activityResponse.GetActivityDetailResponse
+import com.kalfian.stiki.stiki_e_appointment.models.global.MessageResponse
 import com.kalfian.stiki.stiki_e_appointment.models.logbookResponse.GetLogbooksResponse
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateLogbookLectureRequest
+import com.kalfian.stiki.stiki_e_appointment.models.requests.UpdateStatusAppointmentRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Alert
 import com.kalfian.stiki.stiki_e_appointment.utils.BottomSheetRequest
 import com.kalfian.stiki.stiki_e_appointment.utils.Constant
@@ -28,6 +31,8 @@ import com.kalfian.stiki.stiki_e_appointment.utils.SharedPreferenceUtil
 import com.kalfian.stiki.stiki_e_appointment.utils.bottomSheet
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Response
 
 class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLogbookOnClickListener {
 
@@ -182,7 +187,13 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
             title = "Ubah Komentar",
             okTitle = "Ok",
             btnOkOnClick = {
-                saveComment(data.id, it) {
+                saveComment(data.id, it) {isError, message ->
+                    if (isError) {
+                        Alert.showError(this, "Gagal mengubah komentar!", message)
+                        return@saveComment
+                    }
+
+                    Alert.showSuccess(this, "Berhasil mengubah komentar!", "")
                     bottomSheet.dismiss()
                     getListLogbook()
                 }
@@ -195,7 +206,31 @@ class LogbookLectureActivity : AppCompatActivity(), ListLogbookAdapter.AdapterLo
         bottomSheet = bottomSheet(request)
     }
 
-    private fun saveComment(id: Int, comment: String, callback: () -> Unit) {
-        callback()
+    private fun saveComment(id: Int, comment: String, callback: (isError: Boolean, message: String) -> Unit) {
+        val request = UpdateLogbookLectureRequest(comment)
+
+        RetrofitClient.callAuth(applicationContext).updateLectureLogbook(activityId, id, request).enqueue(object: retrofit2.Callback<MessageResponse> {
+            override fun onResponse(
+                call: Call<MessageResponse>,
+                response: Response<MessageResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (data == null) {
+                        Alert.showError(this@LogbookLectureActivity, "Gagal mengubah komentar!", "Periksa koneksi internet anda dan coba lagi")
+                        return
+                    }
+                    callback(false, "Berhasil merubah komentar")
+                    return
+                }
+
+                callback(true, "Gagal mengubah komentar")
+            }
+
+            override fun onFailure(call: retrofit2.Call<MessageResponse>, t: Throwable) {
+                t.printStackTrace()
+                callback(true, "Periksa koneksi internet anda dan coba lagi")
+            }
+        })
     }
 }

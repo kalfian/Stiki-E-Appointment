@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.content.res.ResourcesCompat
 import com.kalfian.stiki.stiki_e_appointment.R
@@ -60,6 +61,10 @@ class CreateLogbookActivity : AppCompatActivity() {
         if (activityId == 0) {
             Alert.showError(this, "Gagal membuka halaman!", "Periksa koneksi internet anda dan coba lagi")
             finish()
+        }
+
+        if (!isLecture) {
+            b.btnCreateLogbook.visibility = View.GONE
         }
 
         setupLayout(isUpdate)
