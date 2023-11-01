@@ -63,10 +63,6 @@ class CreateLogbookActivity : AppCompatActivity() {
             finish()
         }
 
-        if (!isLecture) {
-            b.btnCreateLogbook.visibility = View.GONE
-        }
-
         setupLayout(isUpdate)
 
         b.swipeRefreshCreateLogbook.setOnRefreshListener {
